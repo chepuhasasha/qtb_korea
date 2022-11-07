@@ -18,11 +18,5 @@ defineProps({
 <style lang="sass">
 .grid
   display: grid
-  width: 100%
-  height: 100%
-  max-width: 100%
-  max-height: 100%
-  overflow-y: auto
-
   background: var(--contrast-300)
 </style>

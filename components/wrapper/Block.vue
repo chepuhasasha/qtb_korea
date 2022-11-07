@@ -14,6 +14,5 @@ const props = defineProps({
   display: flex
   width: 100%
   height: 100%
-
   background: var(--contrast-200)
 </style>

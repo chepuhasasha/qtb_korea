@@ -9,7 +9,7 @@ WrapperBlock.header(
     NuxtLink.header_link(v-for="link in links" :key="link.link" :to="link.link") {{link.name}}
 </template>
 <script lang="ts" setup>
-import { PropType } from "vue";
+import type { PropType } from "vue";
 
 defineProps({
   links: {type: Array as PropType<{name: string, link: string}[]>, default: () => [{name: "ADMIN", link: '/admin'}]}
@@ -20,6 +20,7 @@ defineProps({
   flex-direction: row
   gap: 30px
   padding: 20px 100px
+  height: max-content
   img
     width: 200px  
   &_links

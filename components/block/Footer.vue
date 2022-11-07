@@ -12,9 +12,10 @@ footer.footer
 <style lang="sass">
 .footer
   display: flex
-  padding: 40px
+  padding: 100px
   gap: 40px
   background: var(--contrast-500)
+  height: max-content
   *
     color: var(--contrast-300)
   &_block

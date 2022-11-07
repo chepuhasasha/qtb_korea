@@ -1,7 +1,7 @@
 <template lang="pug">
 component.grid(
   :is="tag",
-  :style="{ gridTemplateColumns: cols, gridTemplateRows: rows }"
+  :style="{ gridTemplateColumns: cols, gridTemplateRows: rows, gap: gap }"
 )
   slot
 </template>

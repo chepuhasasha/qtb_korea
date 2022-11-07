@@ -8,7 +8,3 @@ useMeta({
   title: 'QTB - Admin'
 })
 </script>
-<style lang="sass">
-h1
-  color: var(--test)
-</style>

@@ -40,7 +40,7 @@ NuxtLayout
       | Специально разработанные формулы косметических 
       | средств по уходу за лицом, волосами и телом
   WrapperBlock(:style="layout.shader2")
-    BlockMask
+    BlockMask(:mode='1' :shader='1')
   WrapperBlock(:style="layout.oem")
     h1 Manufacture (own brand) OEM/ODM
     p 

@@ -7,7 +7,8 @@ import {
   Texture,
 } from "pixi.js";
 import { modes } from "./mask.modes";
-import fragment from "./shaders/gradient.frag";
+import gradient from "./shaders/gradient.frag";
+import gradient2 from "./shaders/gradient2.frag";
 
 export interface IMaskLine {
   start: { x: number; y: number };
@@ -61,8 +62,19 @@ export class Mask {
   MASK: Graphics = new Graphics();
   FILTER: Filter;
 
-  constructor(private div: HTMLDivElement, mode: number, url: string | null) {
-    this.FILTER = new Filter(undefined, fragment, { timeX: 0.0, timeY: 0.0 });
+  constructor(private div: HTMLDivElement, mode: number, url: string | null, shader:number = 0) {
+    switch (shader) {
+      case 0:
+        this.FILTER = new Filter(undefined, gradient, { timeX: 0.0, timeY: 0.0 });
+        break;
+        case 1:
+        this.FILTER = new Filter(undefined, gradient2, { timeX: 0.0, timeY: 0.0 });
+        break;
+        
+      default:
+        this.FILTER = new Filter(undefined, gradient, { timeX: 0.0, timeY: 0.0 });
+        break;
+    }
     this.config = modes[mode];
     this.image = url;
     this.div.appendChild(this.APP.view as HTMLCanvasElement);
@@ -94,7 +106,7 @@ export class Mask {
     this.APP.screen.width = this.rect.width;
     this.APP.screen.height = this.rect.height;
     this.APP.view.width = this.rect.width;
-    this.APP.view.height = this.rect.height - 10;
+    this.APP.view.height = this.rect.height - 4;
     this.CONTAINER.width = this.rect.width;
     this.CONTAINER.height = this.rect.height;
   }

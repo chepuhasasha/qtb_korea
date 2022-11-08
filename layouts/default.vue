@@ -2,7 +2,7 @@
 main.main
   BlockHeader
   .main_body
-    WrapperGrid
+    WrapperGrid(cols='repeat(6, 1fr)')
       slot
     BlockFooter
 </template>
@@ -10,6 +10,8 @@ main.main
 .main
   display: flex
   flex-direction: column
+  background: var(--contrast-300)
+  gap: 1px
   width: 100vw
   height: 100vh
   &_body

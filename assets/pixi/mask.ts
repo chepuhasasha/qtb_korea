@@ -194,7 +194,7 @@ export class Mask {
       this.SPRITE.texture = this.TEXTURE;
       this.FILTER.enabled = false;
     } else {
-      this.TEXTURE = Texture.from("/img.png");
+      this.TEXTURE = Texture.from("/images/img.png");
       this.SPRITE.texture = this.TEXTURE;
     }
   }

@@ -14,8 +14,59 @@ NuxtLayout
       | Be strong and courageous!
       | CEO of QTB KOREA
       | Maria Lakienko
-  WrapperBlock(:style="layout.shader")
-    BlockMask(:style="layout.shader")
+  WrapperBlock(:style="layout.shader1")
+    BlockMask
+  WrapperBlock(:style="layout.carousel")
+    h1 carousel
+  WrapperBlock(:style="layout.shop")
+    h1 Supply of Korean cosmetics
+    p
+      | Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      | Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+      | nisi ut aliquip ex ea commodo consequat.
+    WrapperBlock(:style='{gap: "20px"}')
+      img(src="@/assets/images/eac.svg", alt="eac")
+      p Все предлагаемые товары имеют сертификаты соответствия ЕАС. 
+  WrapperBlock(:style="layout.eac")
+    h1 EAC certification
+    p 
+      | Основное назначение этого документа — подтверждение соответствия
+      | товаров требованиям технических регламентов ТС. Без этого невозможен импорт
+      | товаров на территорию стран — участниц союза.
+  WrapperBlock(:style="layout.line_up")
+    h1 Line-up selection
+    p 
+      | Специально разработанные формулы косметических 
+      | средств по уходу за лицом, волосами и телом
+  WrapperBlock(:style="layout.shader2")
+    BlockMask
+  WrapperBlock(:style="layout.oem")
+    h1 Manufacture (own brand) OEM/ODM
+    p 
+      | OEM - производство под вашу торговую марку.
+      | ODM-производство торговой марки с вашей формулой и дизайном.
+      | Команда QTB - поможет подобрать формулу, дизайн(пусть слово дизайн 
+      | и упаковка кликается и переводится на страницу блока “дизайн и брендирование”),
+      | упаковку,  доставит вам образцы и займётся производством. 
+      | Мы работаем вместе от начала процесса до отправки вам произведенного продукта.
+  WrapperBlock(:style="layout.identity")
+    h1 Identity
+    p 
+      | Разработка фирменного стиля компании: логотип компании, упаковка, 
+      | 3D визуализация товара и бла бла бла.................если они пришли за помощью
+      | создать бренд-делаем с нуля дезигн, если продвинуть красиво товар-надо модель и ролики???
+      | для этого конечно нужно портфолио...
+  WrapperBlock(:style="layout['2020']")
+    h1 2020
+    p 
+      | Запустила в собственное производство карбоксидные наборы масок 
+      | QTskin для продажи оптом и в розницу на маркетплейсах в РФ.
+  WrapperBlock(:style="layout['2021']")
+    h1 2021
+    p 
+      | Компания стала членом корейской торговой ассоциации KITTA и KOTRA.
+
 </template>
 <script lang="ts" setup>
 import { ref } from "vue";
@@ -33,11 +84,65 @@ const layout = ref({
     padding: "100px",
     gap: "40px",
   },
-  shader: {
+  shader1: {
     gridArea: "2/4/3/7",
     flexDirection: "column",
     padding: "0",
     gap: "0",
+  },
+  carousel: {
+    gridArea: "3/1/4/5",
+    flexDirection: "column",
+    padding: "0",
+    gap: "0",
+  },
+  shop: {
+    gridArea: "3/5/4/7",
+    flexDirection: "column",
+    padding: "100px",
+    gap: "40px",
+  },
+  eac: {
+    gridArea: "4/3/5/5",
+    flexDirection: "column",
+    padding: "100px",
+    gap: "40px",
+  },
+  line_up: {
+    gridArea: "4/5/5/7",
+    flexDirection: "column",
+    padding: "100px",
+    gap: "40px",
+  },
+  shader2: {
+    gridArea: "4/1/6/3",
+    flexDirection: "column",
+    padding: "0",
+    gap: "0",
+  },
+  oem: {
+    gridArea: "5/3/6/5",
+    flexDirection: "column",
+    padding: "100px",
+    gap: "40px",
+  },
+  identity: {
+    gridArea: "5/5/6/7",
+    flexDirection: "column",
+    padding: "100px",
+    gap: "40px",
+  },
+  "2020": {
+    gridArea: "6/1/7/4",
+    flexDirection: "row",
+    padding: "40px 100px",
+    gap: "40px",
+  },
+  "2021": {
+    gridArea: "6/4/7/7",
+    flexDirection: "row",
+    padding: "40px 100px",
+    gap: "40px",
   },
 });
 </script>

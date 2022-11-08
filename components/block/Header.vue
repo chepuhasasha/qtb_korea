@@ -12,7 +12,7 @@ WrapperBlock.header(
 import type { PropType } from "vue";
 
 defineProps({
-  links: {type: Array as PropType<{name: string, link: string}[]>, default: () => [{name: "ADMIN", link: '/admin'}]}
+  links: {type: Array as PropType<{name: string, link: string}[]>, default: () => [{name: "SHOP", link: '/shop'}]}
 })
 </script>
 <style lang="sass">

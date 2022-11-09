@@ -5,7 +5,9 @@ export default defineNuxtConfig({
     title: 'QTB',
   },
   layoutTransition: {},
-  plugins: [{ src: "~/plugins/pixi.plagin", mode: "client", ssr: false }],
+  plugins: [
+    { src: "~/plugins/pixi.plugin", mode: "client", ssr: false },
+  ],
   vite: {
     plugins: [vitePluginString()],
   },

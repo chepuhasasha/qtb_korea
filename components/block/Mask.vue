@@ -20,9 +20,12 @@ onMounted(() => {
 </script>
 <style lang="sass">
 .mask
+  position: relative
   width: 100%
   height: 100%
   overflow: hidden
   max-width: 100%
   max-height: 100%
+  canvas
+    position: absolute
 </style>

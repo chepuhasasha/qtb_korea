@@ -32,8 +32,8 @@ footer.footer
       &:hover
         color: var(--contrast-100)
 
-@media screen and (max-width: 900px)
+@media screen and (max-width: 1100px)
   .footer
     flex-direction: column
-    padding: 20px
+    padding: 40px
 </style>

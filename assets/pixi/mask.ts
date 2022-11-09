@@ -54,6 +54,7 @@ export class Mask {
   APP: Application = new Application({
     backgroundColor: this.bg,
     antialias: true,
+    resolution: 1
   });
   SPRITE: Sprite = new Sprite();
   TEXTURE: Texture;
@@ -85,10 +86,9 @@ export class Mask {
     this.CONTAINER.addChild(this.SPRITE);
     this.SPRITE.filters = [this.FILTER];
     this.CONTAINER.mask = this.MASK;
-
+    window.addEventListener('mousemove', (e)=> {this.mouse = {x: e.clientX, y: e.clientY}})
     this.APP.ticker.add(() => {
       this.Resize();
-      this.mouse = this.APP.renderer.plugins.interaction.mouse.global;
       this.FILTER.uniforms.timeX += this.delta.dx / 100;
       this.FILTER.uniforms.timeY += this.delta.dy / 100;
       this.FILTER.uniforms.mouse = this.mouse;
@@ -104,9 +104,9 @@ export class Mask {
   Resize() {
     this.rect = this.div.getBoundingClientRect();
     this.APP.screen.width = this.rect.width;
-    this.APP.screen.height = this.rect.height;
+    this.APP.screen.height = this.rect.height + 2;
     this.APP.view.width = this.rect.width;
-    this.APP.view.height = this.rect.height - 4;
+    this.APP.view.height = this.rect.height + 2;
     this.CONTAINER.width = this.rect.width;
     this.CONTAINER.height = this.rect.height;
   }

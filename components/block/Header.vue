@@ -48,9 +48,9 @@ defineProps({
       border-bottom: 1px dashed var(--contrast-300)
       color: var(--contrast-500)
     
-@media screen and (max-width: 900px)
+@media screen and (max-width: 1100px)
   .header
-    padding: 20px
+    padding:20px 40px
     gap: 20px
     &_links
       padding: 0 20px

@@ -8,7 +8,8 @@ NuxtLayout
         :interactive="true",
         :duration="2"
       )
-      WidgetButton(size="l", @click="$router.push('/')", text="GO HOME")
+      p Что-то пошло не так! Возможна страница которую вы запрашиваете, устарела или удалена. Проверте правильность URL
+      WidgetButton(size="l", @click="$router.push('/')", text="HOME")
 </template>
 <script lang="ts" setup></script>
 <style lang="sass">
@@ -16,7 +17,8 @@ NuxtLayout
   display: flex
   gap: 40px
   flex-direction: column
-  height: 100%
+  height: 100vh
+  width: 100vw
   background: var(--contrast_200)
   align-items: center
   justify-content: center

@@ -21,7 +21,7 @@ const props = defineProps({
     default: null,
   },
   mode: {
-    type: String as PropType<"default" | "light" | "link">,
+    type: String as PropType<"default" | "ghost">,
     default: "default",
   },
 });
@@ -37,12 +37,13 @@ const classes = computed(() => [
   outline: none
   border: none
   cursor: pointer
-  display: flex
+  display: inline-flex
+  width: max-content
   &_default
-    background: var(--contrast_400)
-    color: var(--contrast_200)
+    background: var(--contrast-400)
+    color: var(--contrast-200)
     &:hover, &_active
-      background: var(--contrast_500)
+      background: var(--contrast-500)
     &_s
       padding: 20px
     &_m
@@ -50,21 +51,21 @@ const classes = computed(() => [
     &_l
       padding: 20px 30px
       gap: 10px
-      font: var(--font_100)
+      font: var(--font-100)
       border-radius: 4px
-  &_link
+  &_ghost
     background: none
-    color: var(--contrast_400)
-    border-bottom: 1px solid var(--contrast_200)
+    color: var(--contrast-400)
+    border-bottom: 1px solid var(--contrast-200)
     &:hover, &_active
-      border-bottom: 1px solid var(--contrast_300)
-      color: var(--contrast_500)
+      border-bottom: 1px solid var(--contrast-300)
+      color: var(--contrast-500)
     &_s
-      padding: 20px
+      padding: 20px 0
     &_m
-      padding: 20px
+      padding: 20px 0
     &_l
-      padding: 10px
+      padding: 10px 0
       gap: 10px
-      font: var(--font_200)
+      font: var(--font-200)
 </style>

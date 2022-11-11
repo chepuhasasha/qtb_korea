@@ -18,7 +18,7 @@ NuxtLayout.about
   //- WrapperBlock(:style="layout.shader1")
   BlockMask.about_shader1
   WrapperBlock.about_carousel
-    h1 Vue De Pulang
+    h1 Vue De
   WrapperBlock.about_shop
     h2 Supply of Korean cosmetics
     p
@@ -32,7 +32,7 @@ NuxtLayout.about
     NuxtLink(to="/shop")
       WidgetButton SHOP
   WrapperBlock.about_eac
-    h2 EAC certification
+    h2 EAC
     p 
       | Основное назначение этого документа — подтверждение соответствия
       | товаров требованиям технических регламентов ТС. Без этого невозможен импорт
@@ -107,6 +107,9 @@ NuxtLayout.about
     flex-direction: column
     padding: 100px
     gap: 40px
+    background: var(--contrast-500)
+    *
+      color:  var(--contrast-200)
   &_line_up
     grid-area: 4/5/5/7
     flex-direction: column
@@ -127,6 +130,9 @@ NuxtLayout.about
     flex-direction: column
     padding: 100px
     gap: 40px
+    background: var(--contrast-500)
+    *
+      color:  var(--contrast-200)
   &_2020
     grid-area: 6/1/7/4
     flex-direction: row
@@ -138,20 +144,80 @@ NuxtLayout.about
     padding: 40px 100px
     gap: 40px
 
-@media screen and (max-width: 1100px)
+// MOBILE
+@media screen and (max-width: 760px)
   .about
-    &_logo_line
+    &_shader1, &_shader2
       display: none
-    &_shader1
-      grid-area: 2/1/3/7
-      height: 100vw
-    &_about_us
-      grid-area: 1/1/2/7
-      flex-direction: column
+    &_about_us, &_shop, &_eac, &_line_up, &_oem, &_identity, &_2020, &_2021
       padding: 40px
       gap: 20px
+    &_line_up, &_identity
+      align-items: flex-end
+      background: var(--contrast-500)
+      *
+        color:  var(--contrast-200)
+    &_logo_line
+      grid-area: 1/1/2/7
+      img
+        width: 1200px
+    &_about_us
+      grid-area: 2/1/3/7
       img:nth-child(2n)
         width: 100%
-      // align-items: center
-      // text-align: center
+    &_carousel
+      grid-area: 3/1/4/7
+    &_shop
+      grid-area: 4/1/5/7
+    &_eac
+      grid-area: 5/1/6/7
+    &_line_up
+      grid-area: 6/1/7/7
+    &_oem
+      grid-area: 7/1/8/7
+    &_identity
+      grid-area: 8/1/9/7
+    &_2020
+      grid-area: 9/1/10/7
+      align-items: center
+    &_2021
+      grid-area: 10/1/11/7
+      align-items: center
+      flex-direction: row-reverse
+
+// TABLET
+@media screen and (min-width: 760px) and (max-width: 1100px)
+  .about
+    &_shader1, &_shader2
+      display: none
+    &_about_us, &_shop, &_eac, &_line_up, &_oem, &_identity, &_2020, &_2021
+      padding: 40px
+      gap: 20px
+    &_line_up, &_identity, &_eac
+      background: var(--contrast-500)
+      *
+        color:  var(--contrast-200)
+    &_logo_line
+      grid-area: 1/1/2/7
+    &_about_us
+      grid-area: 2/1/3/7
+    &_carousel
+      grid-area: 3/1/4/7
+    &_shop
+      grid-area: 4/1/5/5
+    &_eac
+      grid-area: 4/5/5/7
+    &_line_up
+      grid-area: 5/1/6/3
+    &_oem
+      grid-area: 5/3/6/7
+    &_identity
+      grid-area: 6/5/8/7
+    &_2020
+      grid-area: 6/1/7/5
+      align-items: center
+    &_2021
+      grid-area: 7/1/8/5
+      align-items: center
+
 </style>

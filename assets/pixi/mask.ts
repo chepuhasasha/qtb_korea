@@ -86,9 +86,9 @@ export class Mask {
     this.CONTAINER.addChild(this.SPRITE);
     this.SPRITE.filters = [this.FILTER];
     this.CONTAINER.mask = this.MASK;
-    window.addEventListener('mousemove', (e)=> {this.mouse = {x: e.clientX, y: e.clientY}})
     this.APP.ticker.add(() => {
       this.Resize();
+      this.mouse = this.APP.renderer.plugins.interaction.mouse.global;
       this.FILTER.uniforms.timeX += this.delta.dx / 100;
       this.FILTER.uniforms.timeY += this.delta.dy / 100;
       this.FILTER.uniforms.mouse = this.mouse;

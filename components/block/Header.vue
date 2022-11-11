@@ -52,6 +52,7 @@ defineProps({
   .header
     padding:20px 40px
     gap: 20px
+    justify-content: center
     &_links
       padding: 0 20px
     img

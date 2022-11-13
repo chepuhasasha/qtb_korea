@@ -42,6 +42,7 @@ const classes = computed(() => [
   &_default
     background: var(--contrast-400)
     color: var(--contrast-200)
+    border-radius: 4px
     &:hover, &_active
       background: var(--contrast-500)
     &_s

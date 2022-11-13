@@ -25,7 +25,7 @@ defineProps({
     width: 200px  
   &_links
     display: flex
-    gap: 20px
+    gap: 30px
     align-items: center
     border-left: 1px solid var(--contrast-300)
     padding: 0 30px

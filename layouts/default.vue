@@ -1,11 +1,20 @@
 <template lang="pug">
 main.main
-  BlockHeader
+  BlockHeader(:links="links")
   .main_body
     WrapperGrid(cols='repeat(6, 1fr)')
       slot
     BlockFooter
 </template>
+<script lang="ts" setup>
+
+const links = ref([
+  {name: 'SHOP', link: '/shop'},
+  {name: 'MARKETING', link: '/marketing'},
+  {name: 'CERTIFICATION', link: '/certification'}
+])
+
+</script>
 <style lang="sass">
 .main
   display: flex

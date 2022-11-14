@@ -39,20 +39,23 @@ const classes = computed(() => [
   cursor: pointer
   display: inline-flex
   width: max-content
+  height: max-content
   &_default
     background: var(--contrast-400)
     color: var(--contrast-200)
     border-radius: 4px
+    white-space: nowrap
     &:hover, &_active
       background: var(--contrast-500)
     &_s
       padding: 20px
     &_m
       padding: 20px
+      font: var(--font-200)
     &_l
       padding: 20px 30px
       gap: 10px
-      font: var(--font-100)
+      font: var(--font-200)
       border-radius: 4px
   &_ghost
     background: none

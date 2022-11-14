@@ -9,7 +9,7 @@ main.main
 <script lang="ts" setup>
 
 const links = ref([
-  {name: 'SHOP', link: '/shop'},
+  {name: 'STORE', link: '/store'},
   {name: 'MARKETING', link: '/marketing'},
   {name: 'CERTIFICATION', link: '/certification'}
 ])

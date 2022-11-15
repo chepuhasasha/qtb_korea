@@ -1,47 +1,28 @@
 <template lang="pug">
-component.block(:is="tag", :class="classes", :style="style")
-  h2.block_header
-    slot(name="header")
+component.block(:is="tag", :class="[`block__${mode}`]", :style="{flexDirection: direction}")
+  h2.block_header(v-if='title') {{ title }}
   p.block_body
+    | {{ content }}
     slot
-  .block_footer
-    slot(name="footer")
+  .block_footer(v-if='button')
+    NuxtLink(:to="button.link")
+      WidgetButton {{ button.text }}
 </template>
 <script lang="ts" setup>
 import type { PropType } from "vue";
 
-const screen = useScreen();
-
-const props = defineProps({
+defineProps({
   tag: { type: String as PropType<string>, default: "section" },
+  title: { type: String as PropType<string | null>, default: null },
+  content: { type: String as PropType<string | null>, default: null },
   mode: {
     type: String as PropType<"light" | "dark">,
     default: "light",
   },
   direction: { type: String as PropType<string>, default: "column" },
-  area: {
-    type: Object as PropType<{
-      mobile: string;
-      tablet: string;
-      desktop: string;
-    }>,
-    default: () => ({
-      mobile: "1/1/2/2",
-      tablet: "1/1/2/2",
-      desktop: "1/1/2/2",
-    }),
-  },
+  button: { type: Object as PropType<{link: string, text: string} | null>, default: null },
 });
 
-const classes = computed(() => ({
-  [`block__${screen.value}`]: true,
-  [`block__${props.mode}`]: true,
-}));
-
-const style = computed(() => ({
-  gridArea: props.area[screen.value],
-  flexDirection: props.direction
-}));
 </script>
 <style lang="sass">
 .block
@@ -49,16 +30,19 @@ const style = computed(() => ({
   width: 100%
   height: 100%
   transition: padding 0.3s
+  padding: 100px
+  gap: 40px
   &_header
     display: flex
     flex-direction: column
+    gap: 20px
   &_body
     height: 100%
   &_footer
     display: flex
     justify-content: flex-end
 
-  // modes
+  // MODES
   &__light
     background: var(--contrast-200)
     .block_header, .block_body, .block_footer
@@ -68,20 +52,19 @@ const style = computed(() => ({
     .block_header, .block_body, .block_footer
       color: var(--contrast-200)
 
-  // adaptability
-  &__mobile
+// MOBILE
+@media screen and (max-width: 760px)
+  .block
     padding: 20px
     gap: 20px
     .block_header
       gap: 10px
-  &__tablet
+
+// TABLET
+@media screen and (min-width: 760px) and (max-width: 1100px)
+  .block
     padding: 40px
     gap: 20px
-    .block_header
-      gap: 20px
-  &__desktop
-    padding: 100px
-    gap: 40px
     .block_header
       gap: 20px
 </style>

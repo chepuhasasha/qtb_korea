@@ -7,6 +7,9 @@ WrapperBlock.header(
       img(src="@/assets/images/logo_min.svg")
   .header_links
     NuxtLink.header_link(v-for="link in links" :key="link.link" :to="link.link") {{link.name}}
+  select(id="locale-select" v-model="$i18n.locale")
+    option(value="en") EN
+    option(value="ru") RU
 </template>
 <script lang="ts" setup>
 import type { PropType } from "vue";
@@ -22,13 +25,18 @@ defineProps({
   padding: 20px 100px
   height: max-content
   img
-    width: 200px  
+    width: 200px 
+  select
+    background: none
+    border: none
+    font: var(--font-100)
   &_links
     display: flex
     gap: 30px
     align-items: center
     border-left: 1px solid var(--contrast-300)
     padding: 0 30px
+    width: 100%
   &_imglink
     display: flex
     align-items: center

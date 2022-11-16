@@ -1,0 +1,39 @@
+{
+  "header": {
+    "store": "STORE",
+    "marketing": "MARKETING",
+    "certification": "CERTIFICATION"
+  },
+  "aboutPage": {
+    "about": {
+      "title": "ABOUT US",
+      "content": "QTB Korea is a reliable partner with a guarantee of quality products and services in K-beauty industry. The development of the upcoming business from offering new products of popular Korean brands to manufacturing private brand and its promotion in the market.Since 2012, our team has been cooperating with cosmetics manufacturers in Korea. We accompany and organize participation in beauty exhibitions, becoming entrusted business partners. QTB Korea highly appreciates the trust of our foreign colleagues and maintains long-term cooperation.We help cosmetics distributors in the search and manufacture of products, logistics, certification, advertising and sales on marketplaces.To ensure successful work, we have branches of the company in Seoul, Moscow and St. Petersburg, which makes it possible to be flexible, as well as properly control business processes.Thanks to our experience, we confidently offer to join us for cooperation and build successful global business together in the beauty industry.",
+      "button": "CONNECT WITH US"
+    },
+    "wholesale": {
+      "title": "Cosmetic wholesale",
+      "content": "QTB Korea cooperates with various brands. We choose the best products, focusing on the trends popular in Korea and introduce its to our customers. Selling worldwide. We guarantee compliance with price and quality! We invite entrepreneurs and companies to cooperation.Wholesale conditions - one cartoon box of any product. The quantity of goods can be found on the page of each product in the MOQ column.For large wholesale has an additional discounts, provision of samples and marketing support from brands.All products have declarations of conformity to the quality of the goods, which legalizes import and sale on the territory of the EAC countries.Sales to European countries are carried out under CPNP certificates. We help brands with regulations, so almost all our Korean products for the European market are certified.Certified products on the product page of our website are marked with the EAC or CPNP logo.",
+      "button": "STORE"
+    },
+    "certification": {
+      "title": "Certification",
+      "content": "Certification of cosmetic products for import and legalization of sales in your country.",
+      "button": "MORE"
+    },
+    "marketing": {
+      "title": "Marketing",
+      "content": "Develop strategies to promote your brand. Integrated marketing from analysis to project management.",
+      "button": "MORE"
+    },
+    "oem": {
+      "title": "OEM/ODM",
+      "content": "Manufacture of your own brand at well-known factories in South Korea with the provision of formulas and textures, packaging design and branding of your product.",
+      "button": "MORE"
+    },
+    "design": {
+      "title": "Design",
+      "content": "The design team will develop a unique corporate identity and image of your company. Will rebrand and determine the success of the brand.",
+      "button": "MORE"
+    }
+  }
+}

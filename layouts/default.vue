@@ -1,19 +1,14 @@
 <template lang="pug">
 main.main
-  BlockHeader(:links="links")
+  BlockHeader(
+    :links="[ { name: $t('header.store'), link: '/store' }, { name: $t('header.marketing'), link: '/marketing' }, { name: $t('header.certification'), link: '/certification' }, ]"
+  )
   .main_body
-    WrapperGrid(cols='repeat(6, 1fr)')
+    WrapperGrid(cols="repeat(6, 1fr)")
       slot
     BlockFooter
 </template>
 <script lang="ts" setup>
-
-const links = ref([
-  {name: 'STORE', link: '/store'},
-  {name: 'MARKETING', link: '/marketing'},
-  {name: 'CERTIFICATION', link: '/certification'}
-])
-
 </script>
 <style lang="sass">
 .main

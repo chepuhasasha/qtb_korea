@@ -1,12 +1,12 @@
 <template lang="pug">
-.tournaments
-  TransitionGroup.tournaments_list(name="list-absolute" tag="div")
-    BlockTournamentListItem(
-      v-for="tournament in filtred",
-      :key="tournament._id",
-      :tournament="tournament"
+.products
+  TransitionGroup.products_list(name="list-absolute" tag="div")
+    BlockProductListItem(
+      v-for="product in filtred",
+      :key="product._id",
+      :product="product"
     )
-  .tournaments_bar
+  .products_bar
     ButtonTag(mode="icon", @click="get")
       WidgetIcon(icon="spin")
     InputTag(placeholder="search by title..." v-model='search')
@@ -18,20 +18,20 @@
 
 Teleport(to="body")
   Transition(name='modal')
-    WrapperModal(v-if="open" @close="open = false", title="Create new tournament" width='80vw')
-      FormCreateTournament
+    WrapperModal(v-if="open" @close="open = false", title="Create new product" width='80vw')
+      FormCreateProduct
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, computed } from "vue";
-import { useTournamentsStore } from "@/stores/tournaments";
+import { useProductsStore } from "@/stores"
 
-const { state, get } = useTournamentsStore();
+const { state, get } = useProductsStore();
 const open = ref<boolean>(false);
 const search = ref<string | null>(null);
 
 const filtred = computed(() => {
-  return state.tournaments.filter((t) => {
+  return state.products.filter((t) => {
     if (search.value) {
       return t.info.title.toLowerCase().includes(search.value.toLowerCase());
     }
@@ -44,7 +44,7 @@ onMounted(() => {
 });
 </script>
 <style lang="sass">
-.tournaments
+.products
   display: grid
   grid-template-rows: max-content 1fr
   gap: 2px

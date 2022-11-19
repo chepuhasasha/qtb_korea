@@ -1,4 +1,4 @@
 export * from './serverMessages'
-export * from './tournaments'
+export * from './products'
 export * from './user'
 export * from './loader'

@@ -1,8 +1,8 @@
 import type { App } from "vue";
-import CreateTournamentVue from "./CreateTournament.vue";
+import CreateProduct from "./CreateProduct.vue";
 
 export default {
   install(vue: App) {
-    vue.component("FormCreateTournament", CreateTournamentVue);
+    vue.component("FormCreateProduct", CreateProduct);
   },
 };

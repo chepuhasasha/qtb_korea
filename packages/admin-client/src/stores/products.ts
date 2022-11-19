@@ -3,36 +3,35 @@ import { useAxios } from "@/composables/axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useServerMessagesStore } from "@/stores/serverMessages";
-import type { ITournament, ITournamentExtended } from "@tournaments/types";
+import type { IProduct, IProductExtended } from "@qtb_korea/types";
 import { useUserStore } from "./user";
 
-export interface TournamentsState {
-  tournaments: ITournamentExtended[];
+export interface ProductsState {
+  products: IProductExtended[];
 }
 
-export const useTournamentsStore = defineStore("tournaments", () => {
-  const state = ref<TournamentsState>({
-    tournaments: [],
+export const useProductsStore = defineStore("products", () => {
+  const state = ref<ProductsState>({
+    products: [],
   });
   const { addMessage } = useServerMessagesStore();
   const { setLoader } = useLoaderStore();
-  const { refresh } = useUserStore();
   const axios = useAxios();
-  const { state: userState, checkTime } = useUserStore();
+  const { state: userState } = useUserStore();
 
   const get = async () => {
     setLoader(true);
     return await axios
-      .get<ITournamentExtended[]>("tournaments", { headers: userState.headers })
+      .get<IProductExtended[]>("products", { headers: userState.headers })
       .then((res) => {
-        state.value.tournaments = res.data;
+        state.value.products = res.data;
         addMessage({
           code: 200,
-          message: "Tournaments is loaded!",
+          message: "Products is loaded!",
           type: "ok",
         });
         setLoader(false);
-        return state.value.tournaments;
+        return state.value.products;
       })
       .catch((err) => {
         addMessage({
@@ -48,11 +47,11 @@ export const useTournamentsStore = defineStore("tournaments", () => {
   const remove = async (id: string) => {
     setLoader(true);
     return await axios
-      .delete(`tournaments/${id}`, { headers: userState.headers })
+      .delete(`products/${id}`, { headers: userState.headers })
       .then((res) => {
         addMessage({
           code: 200,
-          message: `Tournament: "${id}" is removed!`,
+          message: `Product: "${id}" is removed!`,
           type: "ok",
         });
         get();
@@ -70,14 +69,14 @@ export const useTournamentsStore = defineStore("tournaments", () => {
       });
   };
 
-  const create = async (data: ITournament) => {
+  const create = async (data: IProduct) => {
     setLoader(true);
     return await axios
-      .post(`tournaments`, data, { headers: userState.headers })
+      .post(`products`, data, { headers: userState.headers })
       .then((res) => {
         addMessage({
           code: 200,
-          message: `Tournament: "${data.info.title}" is created!`,
+          message: `Product: "${data.info.title}" is created!`,
           type: "ok",
         });
         get();

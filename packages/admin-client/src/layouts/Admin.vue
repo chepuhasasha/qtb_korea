@@ -4,7 +4,7 @@ main.main
   .main_bar
     RouterLink.main_bar_item(to="/" active-class="main_bar_item_active")
       WidgetIcon(icon="folder") 
-      | TOURNAMENTS
+      | PRODUCTS
     slot(name="bar")
   .main_body
     slot

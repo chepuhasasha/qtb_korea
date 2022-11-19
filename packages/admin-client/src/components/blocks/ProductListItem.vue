@@ -1,15 +1,15 @@
 <template lang="pug">
-.tournament(@click="open = true" v-if='tournament')
-  h4 {{ tournament.info.title }}
-  .tournament_description {{ tournament.info.description }}
+.tournament(@click="open = true" v-if='product')
+  h4 {{ product.info.title }}
+  .tournament_description {{ product.info.description }}
   .tournament_head
     WidgetStatus
     .tournament_head_id
-      span id: {{ tournament._id }}
+      span id: {{ product._id }}
 
   Teleport(to="body")
     Transition(name='modal')
-      WrapperModal(v-if="open" @close="open = false", :title="tournament.info.title")
+      WrapperModal(v-if="open" @close="open = false", :title="product.info.title")
         template(v-slot:header)
           ButtonTag(v-if="isOwner" mode="icon", @click="activeTab = 'update'", :active="activeTab === 'update'")
             WidgetIcon(icon="edit")
@@ -20,45 +20,42 @@
         highlightjs(
           v-show="activeTab === 'json'",
           language="json",
-          :code="JSON.stringify(tournament, null, 4)"
+          :code="JSON.stringify(product, null, 4)"
         )
-    Transition(name='modal' @ok='deleteTournament' @cancel='deleteAlert = false')
+    Transition(name='modal' @ok='deleteProduct' @cancel='deleteAlert = false')
       WrapperAlert(v-if='deleteAlert')
         p 
         |Are you sure you wont to delete 
-        | #[b "{{ tournament.info.title }}"] ?
+        | #[b "{{ product.info.title }}"] ?
     //- BlockTournamentForm(v-show="activeTab === 'update'", :tournament="tournament")
 </template>
 <script lang="ts" setup>
 import { computed, ref } from "vue";
-import { useTournamentsStore } from "@/stores/tournaments";
-import type { ITournamentExtended } from "@tournaments/types";
+import { useProductsStore } from "@/stores";
+import type { IProductExtended } from "@qtb_korea/types";
 import type { PropType } from "vue";
 import { useUserStore } from "@/stores";
 
 const deleteAlert = ref(false);
 const open = ref<boolean>(false);
 const activeTab = ref<string>("update");
-const { remove } = useTournamentsStore();
+const { remove } = useProductsStore();
 const { state: userState } = useUserStore();
 
 const props = defineProps({
-  tournament: {
-    type: Object as PropType<ITournamentExtended>,
+  product: {
+    type: Object as PropType<IProductExtended>,
     require: true,
   },
 });
 
-const deleteTournament = () => {
-  if (props.tournament) remove(props.tournament?._id);
+const deleteProduct = () => {
+  if (props.product) remove(props.product?._id);
 };
 
 const isOwner = computed(() => {
   if (userState.user) {
-    return (
-      props.tournament?.permissions.owners.includes(userState.user.id) ||
-      userState.user.role === "root"
-    );
+    return userState.user.role === "root";
   }
   return false;
 });

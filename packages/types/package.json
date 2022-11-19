@@ -1,0 +1,22 @@
+{
+  "name": "@qtb_korea/types",
+  "version": "0.0.1",
+  "description": "Types to Tournaments",
+  "main": "index.js",
+  "types": "./index.d.ts",
+  "devDependencies": {},
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chepuhasasha/qtb_korea.git",
+    "directory": "/packages/types"
+  },
+  "bugs": {
+    "url": "https://github.com/chepuhasasha/qtb_korea/issues"
+  },
+  "homepage": "https://github.com/chepuhasasha/qtb_korea#readme",
+  "author": "",
+  "license": "ISC"
+}

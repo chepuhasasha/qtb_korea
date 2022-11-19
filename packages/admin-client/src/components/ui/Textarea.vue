@@ -1,0 +1,37 @@
+<template lang="pug">
+WrapperInput(@clickfocus='focus' :customFocus='isfocus')
+  textarea(
+    ref="input",
+    @input="update",
+    :value="modelValue",
+    v-bind="$attrs",
+    @blur="isfocus = false"
+  )
+  template(v-slot:body)
+    slot
+</template>
+<script lang="ts" setup>
+import type { PropType } from "vue";
+import { ref } from "vue";
+
+defineProps({
+  modelValue: {
+    type: String as PropType<string | undefined>,
+    default: "",
+  },
+});
+
+const isfocus = ref<boolean>(false);
+const input = ref<HTMLInputElement | null>(null);
+const emit = defineEmits(["update:modelValue"]);
+const update = (e: Event) => {
+  emit("update:modelValue", (e.target as HTMLInputElement).value);
+};
+const focus = () => {
+  if (input.value) {
+    input.value.focus();
+    isfocus.value = true;
+  }
+};
+</script>
+<style lang="sass"></style>

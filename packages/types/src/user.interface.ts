@@ -7,6 +7,7 @@ export declare interface IUser {
 export declare interface IUserCreate {
     username: string;
     password: string;
+    role?: UserRole
 }
 export declare interface IUserData {
     id: string;

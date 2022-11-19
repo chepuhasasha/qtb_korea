@@ -1,7 +1,8 @@
 <template lang="pug">
-.product_form
-  .product_form_body
-    .product_form_row
+WrapperForm
+  ButtonTag(@click="createProduct") Create
+  template(v-slot:body)
+    .form_row
       InputTag(
         label="Title",
         placeholder="some product totle...",
@@ -24,7 +25,7 @@
       v-model="state.info.description"
       :error='validate.info.description.$errors[0]?.$message'
     )
-    .product_form_row
+    .form_row
       InputTag(
         label="OZON link",
         placeholder="some link...",
@@ -37,7 +38,7 @@
         v-model="state.links.default"
         :error='validate.links.default.$errors[0]?.$message'
       )
-    .product_form_row
+    .form_row
       TextareaTag(
         rows="4"
         label="Characteristic #1",
@@ -59,8 +60,6 @@
         v-model="state.info.characteristics['3']"
         :error="validate.info.characteristics['3'].$errors[0]?.$message"
       )
-  ButtonTag(@click="createProduct") Create
-  //- pre {{ data }}
 </template>
 <script lang="ts" setup>
 import type { IProduct } from "@qtb_korea/types";
@@ -128,23 +127,3 @@ const createProduct = async () => {
   }
 };
 </script>
-<style lang="sass">
-.product_form
-  padding: 20px
-  display: flex
-  flex-direction: column
-  gap: 20px
-  height: 100%
-  .button
-    align-self: end
-    justify-self: end
-  &_body
-    display: flex
-    flex-direction: column
-    gap: 10px
-  &_row
-    display: flex
-    gap: 10px
-    .input
-      width: 100%
-</style>

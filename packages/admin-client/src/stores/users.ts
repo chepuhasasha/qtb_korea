@@ -3,7 +3,7 @@ import { useAxios } from "@/composables/axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useServerMessagesStore } from "@/stores/serverMessages";
-import type { IUserData } from "@qtb_korea/types";
+import type { IUserCreate, IUserData } from "@qtb_korea/types";
 import { useUserStore } from "./user";
 
 export interface UsersState {
@@ -69,7 +69,7 @@ export const useUsersStore = defineStore("users", () => {
       });
   };
 
-  const create = async (data: IUserData) => {
+  const create = async (data: IUserCreate) => {
     setLoader(true);
     return await axios
       .post(`users`, data, { headers: userState.headers })

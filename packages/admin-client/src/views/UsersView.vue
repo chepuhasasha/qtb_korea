@@ -18,8 +18,8 @@
 
 Teleport(to="body")
   Transition(name='modal')
-    WrapperModal(v-if="open" @close="open = false", title="Create new product" width='80vw')
-      FormCreateBrand
+    WrapperModal(v-if="open" @close="open = false", title="Create new user" width='80vw')
+      FormCreateUser
 </template>
 
 <script setup lang="ts">

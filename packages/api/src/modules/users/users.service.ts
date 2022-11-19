@@ -10,7 +10,7 @@ import { hash } from 'bcrypt';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async create({ username, password }: CreateUserDTO) {
+  async create({ username, password, role }: CreateUserDTO) {
     const user = await this.userModel.findOne({
       username: username.toLowerCase(),
     });
@@ -19,7 +19,7 @@ export class UsersService {
       const newUser = await this.userModel.create({
         username: username.toLowerCase(),
         hash: _hash,
-        role: 'user',
+        role: role ? role : 'user',
       });
       return newUser;
     }

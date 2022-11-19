@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IUserCreate } from '@qtb_korea/types';
+import { IUserCreate, UserRole } from '@qtb_korea/types';
 
 export class CreateUserDTO implements IUserCreate {
   @ApiProperty({
@@ -13,4 +13,9 @@ export class CreateUserDTO implements IUserCreate {
     default: 'qwerty123',
   })
   password: string;
+  @ApiProperty({
+    description: 'User role.',
+    default: 'user',
+  })
+  role?: UserRole;
 }

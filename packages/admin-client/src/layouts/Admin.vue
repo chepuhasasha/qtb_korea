@@ -58,8 +58,12 @@ const { state } = useUserStore();
         stroke: var(--text-color-100)
       &_active
         background: var(--contrast-300)
+        path
+          stroke: white
       &:hover
         background: var(--primary-100)
+        path
+          stroke: white
 
   &_body
     grid-area: 1/2/3/3

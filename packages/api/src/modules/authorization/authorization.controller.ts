@@ -37,7 +37,10 @@ export class AuthorizationController {
 
   @Post('signup')
   async signup(@Body() createUserDto: CreateUserDTO) {
-    const data = await this.authService.signup(createUserDto);
+    const data = await this.authService.signup({
+      ...createUserDto,
+      role: 'user',
+    });
     if (data) {
       return { message: 'Signup success!' };
     }

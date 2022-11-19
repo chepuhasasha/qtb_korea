@@ -1,5 +1,5 @@
 import appConfig from 'src/configs/app.config';
-import { ILogin, IUserData } from '@qtb_korea/types';
+import { ILogin, IUserData, IUserCreate } from '@qtb_korea/types';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
@@ -46,7 +46,7 @@ export class AuthorizationService {
     }
     return null;
   }
-  async signup(data: ILogin) {
+  async signup(data: IUserCreate) {
     const user = await this.usersService.create({ ...data });
     return user ? user : null;
   }

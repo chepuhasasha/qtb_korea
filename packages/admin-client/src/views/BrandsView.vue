@@ -18,7 +18,7 @@
 
 Teleport(to="body")
   Transition(name='modal')
-    WrapperModal(v-if="open" @close="open = false", title="Create new product" width='80vw')
+    WrapperModal(v-if="open" @close="open = false", title="Create new brand")
       FormCreateBrand
 </template>
 

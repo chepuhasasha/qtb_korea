@@ -1,6 +1,7 @@
 <template lang="pug">
-.brand_form
-  .brand_form_body
+WrapperForm
+  ButtonTag(@click="createBrand") Create
+  template(v-slot:body)
     InputTag(
       label="Title",
       placeholder="some brand title...",
@@ -13,7 +14,6 @@
       v-model="state.logo"
       :error='validate.logo.$errors[0]?.$message'
     )
-  ButtonTag(@click="createBrand") Create
 </template>
 <script lang="ts" setup>
 import type { IBrand } from "@qtb_korea/types";
@@ -44,23 +44,3 @@ const createBrand = async () => {
   }
 };
 </script>
-<style lang="sass">
-.brand_form
-  padding: 20px
-  display: flex
-  flex-direction: column
-  gap: 20px
-  height: 100%
-  .button
-    align-self: end
-    justify-self: end
-  &_body
-    display: flex
-    flex-direction: column
-    gap: 10px
-  &_row
-    display: flex
-    gap: 10px
-    .input
-      width: 100%
-</style>

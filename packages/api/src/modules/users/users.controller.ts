@@ -1,3 +1,4 @@
+import { CreateUserDTO } from './dto/create-user.dto';
 import {
   Get,
   Body,
@@ -6,6 +7,7 @@ import {
   Delete,
   Controller,
   UseGuards,
+  Post,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -17,6 +19,16 @@ import { Roles } from 'src/decorators/roles.decorator';
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  @Post()
+  @UseGuards(AuthGuard('jwt'))
+  @Roles('root')
+  async create(@Body() createUserDto: CreateUserDTO) {
+    const user = await this.usersService.create(createUserDto);
+    return user
+      ? { message: `Successfully! User ${user.username} created.` }
+      : { message: 'User alredy exist!' };
+  }
 
   @Get()
   @UseGuards(AuthGuard('jwt'))

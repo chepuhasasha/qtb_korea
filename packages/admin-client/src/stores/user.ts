@@ -27,13 +27,20 @@ export const useUserStore = defineStore("user", () => {
   const { addMessage } = useServerMessagesStore();
   const { setLoader } = useLoaderStore();
   const axios = useAxios();
-
-  const checkTime = () => {
-    if (moment().utc().unix() >= state.value.iat) {
-      return false;
+  const isAdmin = computed(() => {
+    if (state.value.user) {
+      return (
+        state.value.user?.role === "root" || state.value.user?.role === "admin"
+      );
     }
-    return true;
-  };
+    return false;
+  });
+  const isRoot = computed(() => {
+    if (state.value.user) {
+      return state.value.user.role === "root";
+    }
+    return false;
+  });
 
   const login = async (login: ILogin) => {
     setLoader(true);
@@ -49,8 +56,31 @@ export const useUserStore = defineStore("user", () => {
           type: "ok",
         });
         setTimeout(() => {
-          refresh()
-        }, (res.data.iat - moment().utc().unix()) * 1000)
+          refresh();
+        }, (res.data.iat - moment().utc().unix()) * 1000);
+        setLoader(false);
+        return state.value.user;
+      })
+      .catch((err) => {
+        addMessage({
+          code: err.code,
+          message: err.message,
+          type: "error",
+        });
+        setLoader(false);
+        return null;
+      });
+  };
+  const signup = async (login: ILogin) => {
+    setLoader(true);
+    return await axios
+      .post("auth/signup", login, { headers: state.value.headers })
+      .then((res) => {
+        addMessage({
+          code: 200,
+          message: res.data.message,
+          type: "ok",
+        });
         setLoader(false);
         return state.value.user;
       })
@@ -119,8 +149,8 @@ export const useUserStore = defineStore("user", () => {
         addMessage({ code: 200, message: "Access token updated!", type: "ok" });
         setLoader(false);
         setTimeout(() => {
-          refresh()
-        }, (res.data.iat - moment().utc().unix()) * 1000)
+          refresh();
+        }, (res.data.iat - moment().utc().unix()) * 1000);
         return state.value.user;
       })
       .catch((err) => {
@@ -134,5 +164,5 @@ export const useUserStore = defineStore("user", () => {
       });
   };
 
-  return { state, login, logout, get, refresh, checkTime };
+  return { state, login, signup, logout, get, refresh, isAdmin, isRoot };
 });

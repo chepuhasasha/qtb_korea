@@ -10,7 +10,7 @@
           :width='1.5'
         )
         | {{ state.user.username }}
-      span id: {{ state.user.id }}
+      span {{ state.user.role }}
     ButtonTag(mode="icon", @click="logoutHandler")
       WidgetIcon(icon="logout")
   InputTag(

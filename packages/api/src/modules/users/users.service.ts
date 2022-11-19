@@ -8,11 +8,9 @@ import { hash } from 'bcrypt';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectModel(User.name) private userModel: Model<UserDocument>,
-  ) {}
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async create({ username, password, role }: CreateUserDTO) {
+  async create({ username, password }: CreateUserDTO) {
     const user = await this.userModel.findOne({
       username: username.toLowerCase(),
     });
@@ -21,7 +19,7 @@ export class UsersService {
       const newUser = await this.userModel.create({
         username: username.toLowerCase(),
         hash: _hash,
-        role,
+        role: 'user',
       });
       return newUser;
     }
@@ -36,9 +34,14 @@ export class UsersService {
     return await this.userModel.findOne({ _id: id });
   }
 
-  async find(condition: FilterQuery<Document<unknown, any, User> & User & {
-    _id: Types.ObjectId;
-  }>) {
+  async find(
+    condition: FilterQuery<
+      Document<unknown, any, User> &
+        User & {
+          _id: Types.ObjectId;
+        }
+    >,
+  ) {
     return await this.userModel.findOne(condition);
   }
 

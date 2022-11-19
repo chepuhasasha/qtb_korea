@@ -1,15 +1,14 @@
 <template lang="pug">
-.product(v-if='product')
-  .product_id
-    span id: {{ product._id }}
-  h4(v-if="!tabs.json") {{ product.info.title }}
-  .product_description(v-if="!tabs.json") {{ product.info.description }}
+.useritem(v-if='user')
+  .useritem_id
+    span id: {{ user.id }}
+  h4(v-if="!tabs.json") {{ user.username }}
   highlightjs(
     v-if="tabs.json"
     language="json",
-    :code="JSON.stringify(product, null, 4)"
+    :code="JSON.stringify(user, null, 4)"
   )
-  .product_bar(v-if='isAdmin')
+  .useritem_bar(v-if='isAdmin')
     ButtonTag(mode="icon", @click="tabs.edit = !tabs.edit", :active="tabs.edit")
       WidgetIcon(icon="edit")
     ButtonTag(mode="icon", @click="tabs.json = !tabs.json", :active="tabs.json")
@@ -18,16 +17,16 @@
       WidgetIcon(icon="trash")
 
   Teleport(to="body")
-    Transition(name='modal' @ok='deleteProduct' @cancel='tabs.delete = false')
+    Transition(name='modal' @ok='deleteBrand' @cancel='tabs.delete = false')
       WrapperAlert(v-if='tabs.delete')
         p 
         |Are you sure you wont to delete 
-        | #[b "{{ product.info.title }}"] ?
+        | #[b "{{ user.username }}"] ?
 </template>
 <script lang="ts" setup>
 import { ref } from "vue";
-import { useProductsStore } from "@/stores";
-import type { IProductExtended } from "@qtb_korea/types";
+import { useUsersStore } from "@/stores";
+import type { IUserData } from "@qtb_korea/types";
 import type { PropType } from "vue";
 import { useUserStore } from "@/stores";
 
@@ -37,22 +36,22 @@ const tabs = ref({
   delete: false,
 });
 
-const { remove } = useProductsStore();
+const { remove } = useUsersStore();
 const { isAdmin } = useUserStore();
 
 const props = defineProps({
-  product: {
-    type: Object as PropType<IProductExtended>,
+  user: {
+    type: Object as PropType<IUserData>,
     require: true,
   },
 });
 
-const deleteProduct = () => {
-  if (props.product) remove(props.product?._id);
+const deleteBrand = () => {
+  if (props.user) remove(props.user?.id);
 };
 </script>
 <style lang="sass">
-.product
+.useritem
   display: flex
   flex-direction: column
   padding: 40px
@@ -80,7 +79,7 @@ const deleteProduct = () => {
     max-height: 100%
     height: 100%
     gap: 10px
-    &_body
-      height: 100%
-      overflow-y: auto
+  &_body
+    height: 100%
+    overflow-y: auto
 </style>

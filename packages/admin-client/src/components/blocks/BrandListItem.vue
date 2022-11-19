@@ -1,15 +1,14 @@
 <template lang="pug">
-.product(v-if='product')
-  .product_id
-    span id: {{ product._id }}
-  h4(v-if="!tabs.json") {{ product.info.title }}
-  .product_description(v-if="!tabs.json") {{ product.info.description }}
+.brand(v-if='brand')
+  .brand_id
+    span id: {{ brand._id }}
+  h4(v-if="!tabs.json") {{ brand.title }}
   highlightjs(
     v-if="tabs.json"
     language="json",
-    :code="JSON.stringify(product, null, 4)"
+    :code="JSON.stringify(brand, null, 4)"
   )
-  .product_bar(v-if='isAdmin')
+  .brand_bar(v-if='isAdmin')
     ButtonTag(mode="icon", @click="tabs.edit = !tabs.edit", :active="tabs.edit")
       WidgetIcon(icon="edit")
     ButtonTag(mode="icon", @click="tabs.json = !tabs.json", :active="tabs.json")
@@ -18,16 +17,16 @@
       WidgetIcon(icon="trash")
 
   Teleport(to="body")
-    Transition(name='modal' @ok='deleteProduct' @cancel='tabs.delete = false')
+    Transition(name='modal' @ok='deleteBrand' @cancel='tabs.delete = false')
       WrapperAlert(v-if='tabs.delete')
         p 
         |Are you sure you wont to delete 
-        | #[b "{{ product.info.title }}"] ?
+        | #[b "{{ brand.title }}"] ?
 </template>
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useProductsStore } from "@/stores";
-import type { IProductExtended } from "@qtb_korea/types";
+import type { IBrandExtended } from "@qtb_korea/types";
 import type { PropType } from "vue";
 import { useUserStore } from "@/stores";
 
@@ -41,18 +40,18 @@ const { remove } = useProductsStore();
 const { isAdmin } = useUserStore();
 
 const props = defineProps({
-  product: {
-    type: Object as PropType<IProductExtended>,
+  brand: {
+    type: Object as PropType<IBrandExtended>,
     require: true,
   },
 });
 
-const deleteProduct = () => {
-  if (props.product) remove(props.product?._id);
+const deleteBrand = () => {
+  if (props.brand) remove(props.brand?._id);
 };
 </script>
 <style lang="sass">
-.product
+.brand
   display: flex
   flex-direction: column
   padding: 40px
@@ -80,7 +79,7 @@ const deleteProduct = () => {
     max-height: 100%
     height: 100%
     gap: 10px
-    &_body
-      height: 100%
-      overflow-y: auto
+  &_body
+    height: 100%
+    overflow-y: auto
 </style>

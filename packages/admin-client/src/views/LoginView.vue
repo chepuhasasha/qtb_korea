@@ -5,58 +5,64 @@
     BlockUser
     ButtonTag.login_user_btn(@click="router.push('/')") GO TO DASHBOARD
   .login_form(v-else, @keydown.enter="submit")
-    h1 Login
+    h1 {{ !isLogin ? 'Sign Up!' : 'Login' }}
     .login_form_body
       InputTag(
         icon="user",
-        v-model="body.username.value",
+        v-model="body.username",
         placeholder="username",
-        :error="body.username.error"
+        :error='validate.username.$errors[0]?.$message'
       )
       InputTag(
         icon="lock",
-        v-model="body.password.value",
+        v-model="body.password",
         type="password",
         placeholder="password",
-        :error='body.password.error'
-      )
-      InputTag(
-        v-if="superUser"
-        icon='key'
-        type="password",
-        v-model="state.headers['X-TOURNAMENTS-KEY']"
-        placeholder="API KEY",
+        :error='validate.password.$errors[0]?.$message'
       )
     .login_form_footer
-      ButtonTag(@click="superUser = !superUser" mode='ghost') {{ superUser ? 'user' : 'superuser' }}
-      ButtonTag(@click="submit" mode='icon' active) Login
+      ButtonTag(@click="isLogin = !isLogin" mode='ghost') {{ isLogin ? 'Sign Up!' : 'Login' }}
+      ButtonTag(@click="submit" mode='icon' active) {{ !isLogin ? 'Sign Up!' : 'Login' }}
         WidgetIcon(icon='login')
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useRouter } from "vue-router";
+import type { ILogin } from "@qtb_korea/types";
+import useVuelidate from "@vuelidate/core";
+import { required } from "@vuelidate/validators";
 
 const router = useRouter();
-const superUser = ref(false)
-const { state, login } = useUserStore();
+const isLogin = ref(true);
+const { state, login, signup } = useUserStore();
 
-const body = ref({
-  username: { value: "", error: "" },
-  password: { value: "", error: "" },
+const body = reactive<ILogin>({
+  username: "",
+  password: "",
 });
 
+const validate = useVuelidate(
+  {
+    username: { required },
+    password: { required },
+  },
+  body
+);
 const submit = async () => {
-  if (!body.value.username.value) body.value.username.error = "Required field!";
-  if (!body.value.password.value) body.value.password.error = "Required field!";
-  if (!body.value.username.value || !body.value.password.value) return;
-  const user = await login({
-    username: body.value.username.value,
-    password: body.value.password.value,
-  }).then(() => {
-    router.push("/");
-  })
+  const valid = await validate.value.$validate();
+  if (valid) {
+    if (isLogin.value) {
+      await login(body).then(() => {
+        router.push("/");
+      });
+    } else {
+      await signup(body).then(() => {
+        isLogin.value = true
+      });
+    }
+  }
 };
 </script>
 <style lang="sass">

@@ -4,13 +4,25 @@ main.main
   .main_bar
     RouterLink.main_bar_item(to="/" active-class="main_bar_item_active")
       WidgetIcon(icon="folder") 
+      | HOME
+    RouterLink.main_bar_item(to="/products" active-class="main_bar_item_active")
+      WidgetIcon(icon="folder") 
       | PRODUCTS
+    RouterLink.main_bar_item(to="/brands" active-class="main_bar_item_active")
+      WidgetIcon(icon="folder") 
+      | BRANDS
+    RouterLink.main_bar_item(v-if="state.user?.role === 'root'" to="/users" active-class="main_bar_item_active")
+      WidgetIcon(icon="folder") 
+      | USERS
     slot(name="bar")
   .main_body
     slot
 </template>
 <script lang="ts" setup>
+import { useUserStore } from "@/stores";
 import { RouterLink } from "vue-router";
+const { state } = useUserStore();
+
 </script>
 <style lang="sass">
 .main

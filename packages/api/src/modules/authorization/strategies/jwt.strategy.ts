@@ -1,4 +1,4 @@
-import { IAdminData } from '@tournaments/types';
+import { IUserData } from '@qtb_korea/types';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
@@ -15,7 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     });
   }
 
-  async validate(payload: IAdminData) {
+  async validate(payload: IUserData) {
     return { id: payload.id, username: payload.username, role: payload.role };
   }
 }

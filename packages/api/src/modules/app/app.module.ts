@@ -4,11 +4,9 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { getMongoConfig } from 'src/configs/mongo.config';
-import { TournamentsModule } from '../tournaments/tournaments.module';
+import { ProductsModule } from '../products/products.module';
 import { AuthorizationModule } from '../authorization/authorization.module';
-import { AccountantModule } from '../accountant/accountant.module';
-import { AdminsModule } from '../admins/admins.module';
-import { PlayersModule } from '../players/players.module';
+import { UsersModule } from '../users/users.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from 'src/guards/roles.guard';
 
@@ -21,10 +19,8 @@ import { RolesGuard } from 'src/guards/roles.guard';
       useFactory: getMongoConfig,
     }),
     AuthorizationModule,
-    AccountantModule,
-    AdminsModule,
-    PlayersModule,
-    TournamentsModule,
+    UsersModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [

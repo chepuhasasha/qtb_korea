@@ -1,4 +1,4 @@
-export * from './src/tournament.interface'
-export * from './src/admin.interface'
+export * from './src/common'
+export * from './src/product.interface'
+export * from './src/user.interface'
 export * from './src/auth.interface'
-export * from './src/player.interface'

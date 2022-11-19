@@ -1,9 +1,9 @@
 import appConfig from 'src/configs/app.config';
-import { IAdminData } from '@tournaments/types';
+import { IUserData } from '@qtb_korea/types';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
-import { AdminsService } from 'src/modules/admins/admins.service';
+import { UsersService } from 'src/modules/users/users.service';
 import * as randomToken from 'rand-token';
 import * as moment from 'moment';
 import { AuthData, AuthDocument } from './authorization.schema';
@@ -14,12 +14,12 @@ import { Model } from 'mongoose';
 export class AuthorizationService {
   constructor(
     @InjectModel(AuthData.name) private authModel: Model<AuthDocument>,
-    private adminsService: AdminsService,
+    private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
 
   async validate(username: string, password: string) {
-    const user = await this.adminsService.find({ username });
+    const user = await this.usersService.find({ username });
     if (user) {
       const condition = await compare(password, user.hash);
       if (condition) {
@@ -47,14 +47,14 @@ export class AuthorizationService {
     return null;
   }
 
-  async logout({ username }: IAdminData) {
+  async logout({ username }: IUserData) {
     const user = await this.authModel.findOne({ username });
     if (user) {
       user.delete();
     }
   }
 
-  async getRefreshToken(user: IAdminData) {
+  async getRefreshToken(user: IUserData) {
     const refresh_token = randomToken.generate(10);
     const refresh_token_exp = moment().day(1).format('YYYY/MM/DD');
     let data = await this.authModel.findOneAndUpdate(
@@ -85,7 +85,7 @@ export class AuthorizationService {
     return this.jwtService.sign(secretData);
   }
 
-  async getAccesToken(user: IAdminData) {
+  async getAccesToken(user: IUserData) {
     const life = appConfig().jwtLife;
     const payload = { username: user.username, id: user.id, role: user.role };
     return {

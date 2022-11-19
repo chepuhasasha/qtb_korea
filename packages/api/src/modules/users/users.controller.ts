@@ -8,22 +8,22 @@ import {
   Controller,
   UseGuards,
 } from '@nestjs/common';
-import { AdminsService } from './admins.service';
-import { CreateAdminDto } from './dto/create-admin.dto';
-import { UpdateAdminDto } from './dto/update-admin.dto';
+import { UsersService } from './users.service';
+import { CreateUserDTO } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
-@ApiTags('Admins')
-@Controller('admins')
-export class AdminController {
-  constructor(private readonly adminsService: AdminsService) {}
+@ApiTags('Users')
+@Controller('users')
+export class UsersController {
+  constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  @ApiSecurity('X-TOURNAMENTS-KEY', ['X-TOURNAMENTS-KEY'])
+  @ApiSecurity('X-QTB-KEY', ['X-QTB-KEY'])
   @UseGuards(AuthGuard('api-key'))
-  async create(@Body() createAdminDto: CreateAdminDto) {
-    const user = await this.adminsService.create(createAdminDto);
+  async create(@Body() createUserDto: CreateUserDTO) {
+    const user = await this.usersService.create(createUserDto);
     return user
       ? { message: `Successfully! User ${user.username} created.` }
       : { message: 'User alredy exist!' };
@@ -31,7 +31,7 @@ export class AdminController {
 
   @Get()
   async findAll() {
-    const users = await this.adminsService.findAll();
+    const users = await this.usersService.findAll();
     return users.map((user) => ({
       id: user._id,
       username: user.username,
@@ -40,30 +40,27 @@ export class AdminController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const user = await this.adminsService.findOne(id);
+    const user = await this.usersService.findOne(id);
     return user
       ? { id: user._id, username: user.username }
       : { message: 'User not a found!' };
   }
 
   @Patch(':id')
-  @ApiSecurity('X-TOURNAMENTS-KEY', ['X-TOURNAMENTS-KEY'])
+  @ApiSecurity('X-QTB-KEY', ['X-QTB-KEY'])
   @UseGuards(AuthGuard('api-key'))
-  async update(
-    @Param('id') id: string,
-    @Body() updateAdminDto: UpdateAdminDto,
-  ) {
-    const user = await this.adminsService.update(id, updateAdminDto);
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    const user = await this.usersService.update(id, updateUserDto);
     return user
       ? { message: `User ${user.username} updated!` }
       : { message: 'User not a found!' };
   }
 
   @Delete(':id')
-  @ApiSecurity('X-TOURNAMENTS-KEY', ['X-TOURNAMENTS-KEY'])
+  @ApiSecurity('X-QTB-KEY', ['X-QTB-KEY'])
   @UseGuards(AuthGuard('api-key'))
   async remove(@Param('id') id: string) {
-    const user = await this.adminsService.remove(id);
+    const user = await this.usersService.remove(id);
     return user
       ? { message: `User ${user.username} removed!` }
       : { message: 'User not a found!' };

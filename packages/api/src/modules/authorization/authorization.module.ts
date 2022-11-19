@@ -4,7 +4,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
 import { jwtConfig } from 'src/configs/jwt.config';
-import { AdminsModule } from 'src/modules/admins/admins.module';
+import { UsersModule } from 'src/modules/users/users.module';
 import { AuthorizationController } from './authorization.controller';
 import { AuthData, AuthSchema } from './authorization.schema';
 import { AuthorizationService } from './authorization.service';
@@ -15,7 +15,7 @@ import { RefreshStrategy } from './strategies/refresh.strategy';
 
 @Module({
   imports: [
-    AdminsModule,
+    UsersModule,
     ConfigModule,
     MongooseModule.forFeature([{ name: AuthData.name, schema: AuthSchema }]),
     PassportModule,

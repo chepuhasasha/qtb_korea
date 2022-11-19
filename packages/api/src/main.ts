@@ -15,17 +15,17 @@ async function bootstrap() {
 
   // SWAGGER
   const config = new DocumentBuilder()
-    .setTitle('Tournaments API')
-    .setDescription('Tournaments API description')
+    .setTitle('QTB KOREA API')
+    .setDescription('qtb korea API description')
     .setVersion('1.0')
     .addApiKey(
       {
         type: 'apiKey',
-        name: 'X-TOURNAMENTS-KEY',
+        name: 'X-QTB-KEY',
         in: 'header',
         description: 'Enter your API key',
       },
-      'X-TOURNAMENTS-KEY',
+      'X-QTB-KEY',
     )
     .build();
   const document = SwaggerModule.createDocument(app, config);

@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IAdminCreate } from '@tournaments/types';
+import { IUserCreate, UserRole } from '@qtb_korea/types';
 
-export class CreateAdminDto implements IAdminCreate {
+export class CreateUserDTO implements IUserCreate {
   @ApiProperty({
     description: 'User name.',
     default: 'John',
@@ -18,5 +18,5 @@ export class CreateAdminDto implements IAdminCreate {
     description: 'User role.',
     default: 'admin',
   })
-  role: IAdminCreate['role'];
+  role: UserRole;
 }

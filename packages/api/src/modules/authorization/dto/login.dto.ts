@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ILogin } from '@tournaments/types';
+import { ILogin } from '@qtb_korea/types';
 
 export class LoginDto implements ILogin {
   @ApiProperty({

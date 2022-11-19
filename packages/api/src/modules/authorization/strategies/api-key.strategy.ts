@@ -6,10 +6,8 @@ import Strategy from 'passport-headerapikey';
 @Injectable()
 export class ApiKeyStrategy extends PassportStrategy(Strategy, 'api-key') {
   constructor(private readonly _configService: ConfigService) {
-    super(
-      { header: 'X-TOURNAMENTS-KEY', prefix: '' },
-      true,
-      async (apiKey, done) => this.validate(apiKey, done),
+    super({ header: 'X-QTB-KEY', prefix: '' }, true, async (apiKey, done) =>
+      this.validate(apiKey, done),
     );
   }
 

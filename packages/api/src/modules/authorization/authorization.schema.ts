@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import type { IAuthData } from '@tournaments/types'
+import type { IAuthData, UserRole } from '@qtb_korea/types';
 
 export type AuthDocument = HydratedDocument<AuthData>;
 
@@ -13,7 +13,7 @@ export class AuthData implements IAuthData {
   username: string;
 
   @Prop()
-  role: string;
+  role: UserRole;
 
   @Prop()
   refresh_token: string;

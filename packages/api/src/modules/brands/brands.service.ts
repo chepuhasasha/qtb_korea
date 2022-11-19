@@ -36,27 +36,13 @@ export class BrandsService {
     return await this.brandModel.findById(id);
   }
 
-  async update(_id: string, updateBrandDto: UpdateBrandDTO, user: IUserData) {
-    if (user.role === 'root') {
-      return await this.brandModel.findOneAndUpdate({ _id }, updateBrandDto, {
-        new: true,
-      });
-    } else {
-      return await this.brandModel.findOneAndUpdate(
-        { _id, 'permissions.owners': [user.id] },
-        updateBrandDto,
-        {
-          new: true,
-        },
-      );
-    }
+  async update(_id: string, updateBrandDto: UpdateBrandDTO) {
+    return await this.brandModel.findOneAndUpdate({ _id }, updateBrandDto, {
+      new: true,
+    });
   }
 
-  async remove(_id: string, user: IUserData) {
-    if (user.role === 'root') {
-      return await this.brandModel.findOneAndRemove({ _id });
-    } else {
-      return await this.brandModel.findOneAndRemove({ _id });
-    }
+  async remove(_id: string) {
+    return await this.brandModel.findOneAndRemove({ _id });
   }
 }

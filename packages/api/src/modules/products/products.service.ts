@@ -36,37 +36,13 @@ export class ProductsService {
     return await this.productModel.findById(id);
   }
 
-  async update(
-    _id: string,
-    updateProductDto: UpdateProductDTO,
-    user: IUserData,
-  ) {
-    if (user.role === 'root') {
-      return await this.productModel.findOneAndUpdate(
-        { _id },
-        updateProductDto,
-        {
-          new: true,
-        },
-      );
-    } else {
-      return await this.productModel.findOneAndUpdate(
-        { _id, 'permissions.owners': [user.id] },
-        updateProductDto,
-        {
-          new: true,
-        },
-      );
-    }
+  async update(_id: string, updateProductDto: UpdateProductDTO) {
+    return await this.productModel.findOneAndUpdate({ _id }, updateProductDto, {
+      new: true,
+    });
   }
 
-  async remove(_id: string, user: IUserData) {
-    if (user.role === 'root') {
-      return await this.productModel.findOneAndRemove({ _id });
-    } else {
-      return await this.productModel.findOneAndRemove({
-        _id,
-      });
-    }
+  async remove(_id: string) {
+    return await this.productModel.findOneAndRemove({ _id });
   }
 }

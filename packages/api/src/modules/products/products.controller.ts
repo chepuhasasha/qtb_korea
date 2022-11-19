@@ -58,15 +58,10 @@ export class ProductsController {
   @UseGuards(AuthGuard('jwt'))
   @Roles('admin', 'root')
   async update(
-    @Request() req,
     @Param('id') id: string,
     @Body() updateProductDto: UpdateProductDTO,
   ) {
-    const product = await this.productsService.update(
-      id,
-      updateProductDto,
-      req.user,
-    );
+    const product = await this.productsService.update(id, updateProductDto);
     if (product) return { message: `Product "${product.info.title}" updated!` };
     throw new ForbiddenException();
   }
@@ -74,8 +69,8 @@ export class ProductsController {
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
   @Roles('admin', 'root')
-  async remove(@Request() req, @Param('id') id: string) {
-    const product = await this.productsService.remove(id, req.user);
+  async remove(@Param('id') id: string) {
+    const product = await this.productsService.remove(id);
     if (product) return { message: `Product "${product.info.title}" removed!` };
     throw new ForbiddenException();
   }

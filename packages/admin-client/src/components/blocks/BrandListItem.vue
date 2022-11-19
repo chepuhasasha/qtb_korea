@@ -25,7 +25,7 @@
 </template>
 <script lang="ts" setup>
 import { ref } from "vue";
-import { useProductsStore } from "@/stores";
+import { useBrandsStore } from "@/stores";
 import type { IBrandExtended } from "@qtb_korea/types";
 import type { PropType } from "vue";
 import { useUserStore } from "@/stores";
@@ -36,7 +36,7 @@ const tabs = ref({
   delete: false,
 });
 
-const { remove } = useProductsStore();
+const { remove } = useBrandsStore();
 const { isAdmin } = useUserStore();
 
 const props = defineProps({

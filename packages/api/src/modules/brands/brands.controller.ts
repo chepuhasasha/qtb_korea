@@ -58,11 +58,10 @@ export class BrandsController {
   @UseGuards(AuthGuard('jwt'))
   @Roles('admin', 'root')
   async update(
-    @Request() req,
     @Param('id') id: string,
     @Body() updateBrandDto: UpdateBrandDTO,
   ) {
-    const brand = await this.brandsService.update(id, updateBrandDto, req.user);
+    const brand = await this.brandsService.update(id, updateBrandDto);
     if (brand) return { message: `Product "${brand.title}" updated!` };
     throw new ForbiddenException();
   }
@@ -70,8 +69,8 @@ export class BrandsController {
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
   @Roles('admin', 'root')
-  async remove(@Request() req, @Param('id') id: string) {
-    const brand = await this.brandsService.remove(id, req.user);
+  async remove(@Param('id') id: string) {
+    const brand = await this.brandsService.remove(id);
     if (brand) return { message: `Brand "${brand.title}" removed!` };
     throw new ForbiddenException();
   }

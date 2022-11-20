@@ -10,6 +10,8 @@ import { UsersModule } from '../users/users.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { BrandsModule } from '../brands/brands.module';
+import { MulterModule } from '@nestjs/platform-express';
+import { FilesModule } from '../files/files.module';
 
 @Module({
   imports: [
@@ -19,6 +21,10 @@ import { BrandsModule } from '../brands/brands.module';
       inject: [ConfigService],
       useFactory: getMongoConfig,
     }),
+    MulterModule.register({
+      dest: './uploads',
+    }),
+    FilesModule,
     AuthorizationModule,
     UsersModule,
     ProductsModule,

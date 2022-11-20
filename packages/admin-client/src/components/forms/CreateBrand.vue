@@ -8,7 +8,7 @@ WrapperForm
       v-model="state.title"
       :error='validate.title.$errors[0]?.$message'
     )
-    InputTag(
+    InputImageTag(
       label="Logo",
       placeholder="some logo url...",
       v-model="state.logo"

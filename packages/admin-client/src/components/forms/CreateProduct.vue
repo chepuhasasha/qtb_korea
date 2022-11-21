@@ -66,7 +66,7 @@ import type { IProduct } from "@qtb_korea/types";
 import { useProductsStore, useBrandsStore } from "@/stores";
 import { reactive } from "vue"; // "from '@vue/composition-api'" if you are using Vue 2.x
 import { useVuelidate } from "@vuelidate/core";
-import { required, email } from "@vuelidate/validators";
+import { required } from "@vuelidate/validators";
 
 const { create } = useProductsStore();
 const { state: brandsState } = useBrandsStore();

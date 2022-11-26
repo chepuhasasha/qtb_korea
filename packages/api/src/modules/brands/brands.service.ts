@@ -1,4 +1,4 @@
-import { IUserData } from '@qtb_korea/types';
+import { IBrand } from '@qtb_korea/types';
 import { Injectable } from '@nestjs/common';
 import { Brand, BrandDocument } from './brands.schema';
 import { CreateBrandDTO } from './dto/create-brand.dto';
@@ -14,7 +14,23 @@ export class BrandsService {
   ) {}
 
   async create(brand: CreateBrandDTO) {
-    return await this.brandModel.create(brand);
+    const newBrand: IBrand = {
+      info: {
+        title: brand.title,
+        description: brand.description,
+      },
+      images: {
+        baner: brand.baner,
+        logo: brand.logo,
+      },
+      localization: {
+        ru: {
+          title: brand.ru_title,
+          description: brand.description,
+        },
+      },
+    };
+    return await this.brandModel.create(newBrand);
   }
 
   async find(

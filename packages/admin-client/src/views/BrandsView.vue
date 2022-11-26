@@ -1,10 +1,11 @@
 <template lang="pug">
 .brands
   TransitionGroup.brands_list(name="list-absolute" tag="div")
-    BlockBrandListItem(
+    BlockListItem(
       v-for="brand in filtred",
       :key="brand._id",
-      :brand="brand"
+      :obj="brand"
+      type='brand'
     )
   .brands_bar
     ButtonTag(mode="icon", @click="get")

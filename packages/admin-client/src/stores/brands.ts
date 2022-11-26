@@ -73,8 +73,14 @@ export const useBrandsStore = defineStore("brands", () => {
     setLoader(true);
     const form = new FormData();
     Object.keys(data).forEach((key) => {
-      form.append(key, data[key as keyof IBrandCreate]);
+      if (key === "images") {
+        form.append("images", data[key as keyof IBrandCreate][0]);
+        form.append("images", data[key as keyof IBrandCreate][1]);
+      } else {
+        form.append(key, data[key as keyof IBrandCreate]);
+      }
     });
+    console.log(form)
     return await axios
       .post(`brands`, form, {
         headers: {

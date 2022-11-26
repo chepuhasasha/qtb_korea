@@ -17,5 +17,5 @@ export const imageFileFilter = (req, file, callback) => {
 export const editFileName = (req, file, callback) => {
   const name = moment().utc().unix();
   const fileExtName = extname(file.originalname);
-  callback(null, `${name}${fileExtName}`);
+  callback(null, `${name}_${Math.random()}_${fileExtName}`);
 };

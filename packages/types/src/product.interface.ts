@@ -1,36 +1,41 @@
 export interface IProductInfo {
-  title: string
-  description: string
-  brand_id: string
-  characteristics: Record<string, string>
-}
-
-export interface IProductAssets {
-  images: string[]
-  baner: string
+  title: string;
+  description: string;
+  brand_id: string;
+  characteristics: string[];
+  link: { name: string, url: string };
 }
 
 export interface IProductLocal {
-  ru: string // - id карты
-  en: string // - id карты
-  // ...
-}
-export interface IProductLocalMap {
-  tournament_id: string
-  lang: string // - ru
-  map: IProductInfo
+  ru: IProductInfo;
 }
 
-export interface IProductLinks {
-  ozon: string | null
-  default: string
+export interface IProduct {
+  info: IProductInfo;
+  images: string[];
+  localization: IProductLocal;
 }
 
-export interface IProduct{
-  info: IProductInfo
-  assets: IProductAssets
-  links: IProductLinks
-  localization: IProductLocal
+export interface IProductCreate {
+  brand_id: string;
+  title: string;
+  description: string;
+  characteristics_1: string;
+  characteristics_2: string;
+  characteristics_3: string;
+  link_name: string
+  link_url: string
+  ru_title: string;
+  ru_description: string;
+  ru_characteristics_1: string;
+  ru_characteristics_2: string;
+  ru_characteristics_3: string;
+  ru_link_name: string
+  ru_link_url: string
+}
+
+export interface IProductCreateForm extends IProductCreate {
+  images: Blob[];
 }
 
 export interface IProductExtended extends IProduct {

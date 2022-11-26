@@ -11,6 +11,8 @@ import {
   Delete,
   UseGuards,
   ForbiddenException,
+  UseInterceptors,
+  UploadedFiles,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -18,6 +20,9 @@ import { Roles } from 'src/decorators/roles.decorator';
 import { ProductsService } from './products.service';
 import { FilterQuery, Document, Types } from 'mongoose';
 import { Product } from './products.schema';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { editFileName, imageFileFilter } from 'src/utils/images.utils';
 
 @ApiTags('Products')
 @Controller('products')
@@ -27,9 +32,22 @@ export class ProductsController {
   @Post()
   @UseGuards(AuthGuard('jwt'))
   @Roles('admin', 'root')
-  async create(@Body() createProductDto: CreateProductDTO) {
-    const product = await this.productsService.create(createProductDto);
-    return product ? product : { message: 'User alredy exist!' };
+  @UseInterceptors(
+    FilesInterceptor('images', 5, {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: editFileName,
+      }),
+      fileFilter: imageFileFilter,
+    }),
+  )
+  async create(
+    @UploadedFiles() files,
+    @Body() createProductDto: CreateProductDTO,
+  ) {
+    console.log(files)
+    const product = await this.productsService.create(createProductDto, files);
+    return product ? product : { message: 'Something went wrong!' };
   }
 
   @Post('/find')

@@ -12,7 +12,7 @@ import {
   UseGuards,
   ForbiddenException,
   UseInterceptors,
-  UploadedFile,
+  UploadedFiles,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -20,7 +20,7 @@ import { Roles } from 'src/decorators/roles.decorator';
 import { BrandsService } from './brands.service';
 import { FilterQuery, Document, Types } from 'mongoose';
 import { Brand } from './brands.schema';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { editFileName, imageFileFilter } from '../../utils/images.utils';
 import { diskStorage } from 'multer';
 
@@ -33,7 +33,7 @@ export class BrandsController {
   @UseGuards(AuthGuard('jwt'))
   @Roles('admin', 'root')
   @UseInterceptors(
-    FileInterceptor('baner', {
+    FilesInterceptor('images', 2, {
       storage: diskStorage({
         destination: './uploads',
         filename: editFileName,
@@ -41,10 +41,11 @@ export class BrandsController {
       fileFilter: imageFileFilter,
     }),
   )
-  async create(@UploadedFile() file, @Body() createBrandDto: CreateBrandDTO) {
+  async create(@UploadedFiles() files, @Body() createBrandDto: CreateBrandDTO) {
     const brand = await this.brandsService.create({
       ...createBrandDto,
-      baner: file.filename,
+      baner: files[0].filename,
+      logo: files[1].filename,
     });
     return brand ? brand : { message: 'Something went wrong!' };
   }
@@ -79,7 +80,7 @@ export class BrandsController {
     @Body() updateBrandDto: UpdateBrandDTO,
   ) {
     const brand = await this.brandsService.update(id, updateBrandDto);
-    if (brand) return { message: `Product "${brand.title}" updated!` };
+    if (brand) return { message: `Product "${brand.info.title}" updated!` };
     throw new ForbiddenException();
   }
 
@@ -88,7 +89,7 @@ export class BrandsController {
   @Roles('admin', 'root')
   async remove(@Param('id') id: string) {
     const brand = await this.brandsService.remove(id);
-    if (brand) return { message: `Brand "${brand.title}" removed!` };
+    if (brand) return { message: `Brand "${brand.info.title}" removed!` };
     throw new ForbiddenException();
   }
 }

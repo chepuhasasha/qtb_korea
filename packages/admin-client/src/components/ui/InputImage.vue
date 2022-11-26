@@ -9,7 +9,7 @@ WrapperInput(@click='_focus' :customFocus='isfocus')
       @blur="isfocus = false"
       accept="image/*"
     )
-    img(:src='src')
+    .inputimg_img(:style='{backgroundImage: `url(${src})`}')
     ButtonTag(@click='input?.click()' mode='icon')
       WidgetIcon(icon='plus')
   template(v-slot:body)
@@ -54,4 +54,11 @@ const _focus = () => {
     display: none
   .button
     align-self: end
+  &_img
+    width: 60px
+    height: 60px
+    border-radius: 10px
+    background-repeat: no-repeat
+    background-position: center
+    background-size: cover
 </style>

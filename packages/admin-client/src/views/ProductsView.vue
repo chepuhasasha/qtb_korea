@@ -1,10 +1,11 @@
 <template lang="pug">
 .products
   TransitionGroup.products_list(name="list-absolute" tag="div")
-    BlockProductListItem(
+    BlockListItem(
       v-for="product in filtred",
       :key="product._id",
-      :product="product"
+      :obj="product"
+      type='product'
     )
   .products_bar
     ButtonTag(mode="icon", @click="get")

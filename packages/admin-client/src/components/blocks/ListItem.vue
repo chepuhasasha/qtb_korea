@@ -1,14 +1,14 @@
 <template lang="pug">
-.brand(v-if='brand')
-  .brand_id
-    span id: {{ brand._id }}
-  h4(v-if="!tabs.json") {{ brand.title }}
+.listitem(v-if='obj')
+  .listitem_id
+    span id: {{ obj._id }}
+  h4(v-if="!tabs.json") {{ obj.info.title }}
   highlightjs(
     v-if="tabs.json"
     language="json",
-    :code="JSON.stringify(brand, null, 4)"
+    :code="JSON.stringify(obj, null, 4)"
   )
-  .brand_bar(v-if='isAdmin')
+  .listitem_bar(v-if='isAdmin')
     ButtonTag(mode="icon", @click="tabs.edit = !tabs.edit", :active="tabs.edit")
       WidgetIcon(icon="edit")
     ButtonTag(mode="icon", @click="tabs.json = !tabs.json", :active="tabs.json")
@@ -17,18 +17,27 @@
       WidgetIcon(icon="trash")
 
   Teleport(to="body")
-    Transition(name='modal' @ok='deleteBrand' @cancel='tabs.delete = false')
+    Transition(name='modal' @ok='deleteObj' @cancel='tabs.delete = false')
       WrapperAlert(v-if='tabs.delete')
         p 
-        |Are you sure you wont to delete 
-        | #[b "{{ brand.title }}"] ?
+        |Are you sure you wont to delete {{ type }}
+        | #[b "{{ obj.info.title }}"] ?
 </template>
 <script lang="ts" setup>
-import { ref } from "vue";
-import { useBrandsStore } from "@/stores";
-import type { IBrandExtended } from "@qtb_korea/types";
-import type { PropType } from "vue";
-import { useUserStore } from "@/stores";
+import { useBrandsStore, useProductsStore, useUserStore } from "@/stores";
+import type { IBrandExtended, IProductExtended } from "@qtb_korea/types";
+import { ref, type PropType } from "vue";
+
+const props = defineProps({
+  obj: {
+    type: Object as PropType<IBrandExtended | IProductExtended>,
+    default: null,
+  },
+  type: {
+    type: String as PropType<"brand" | "product" | "user">,
+    default: null,
+  },
+});
 
 const tabs = ref({
   edit: false,
@@ -36,22 +45,26 @@ const tabs = ref({
   delete: false,
 });
 
-const { remove } = useBrandsStore();
+const { remove: removeBrand } = useBrandsStore();
+const { remove: removeProduct } = useProductsStore();
 const { isAdmin } = useUserStore();
 
-const props = defineProps({
-  brand: {
-    type: Object as PropType<IBrandExtended>,
-    require: true,
-  },
-});
+const deleteObj = () => {
+  switch (props.type) {
+    case "brand":
+      removeBrand(props.obj._id);
+      break;
+    case "product":
+      removeProduct(props.obj._id);
+      break;
 
-const deleteBrand = () => {
-  if (props.brand) remove(props.brand?._id);
+    default:
+      break;
+  }
 };
 </script>
 <style lang="sass">
-.brand
+.listitem
   display: flex
   flex-direction: column
   padding: 40px

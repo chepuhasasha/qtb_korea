@@ -3,7 +3,12 @@ import { useAxios } from "@/composables/axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useServerMessagesStore } from "@/stores/serverMessages";
-import type { IProduct, IProductExtended } from "@qtb_korea/types";
+import type {
+  IProduct,
+  IProductCreateForm,
+  IProductExtended,
+  IProductCreate,
+} from "@qtb_korea/types";
 import { useUserStore } from "./user";
 
 export interface ProductsState {
@@ -69,14 +74,29 @@ export const useProductsStore = defineStore("products", () => {
       });
   };
 
-  const create = async (data: IProduct) => {
+  const create = async (data: IProductCreateForm) => {
     setLoader(true);
+    const form = new FormData();
+    Object.keys(data).forEach((key) => {
+      if (key === "images") {
+        data.images.forEach(file => {
+          form.append("images", file);
+        })
+      } else {
+        form.append(key, data[key as keyof IProductCreate]);
+      }
+    });
     return await axios
-      .post(`products`, data, { headers: userState.headers })
+      .post(`products`, form, {
+        headers: {
+          ...userState.headers,
+          "Content-Type": "multypart/form-data",
+        },
+      })
       .then((res) => {
         addMessage({
           code: 200,
-          message: `Product: "${data.info.title}" is created!`,
+          message: `Product: "${data.title}" is created!`,
           type: "ok",
         });
         get();

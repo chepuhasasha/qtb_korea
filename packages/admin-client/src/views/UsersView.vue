@@ -1,9 +1,12 @@
 <template lang="pug">
 WrapperPage
-  BlockUserListItem(
+  BlockListItem(
     v-for="user in filtred",
     :key="user.id",
-    :user="user"
+    :obj="user"
+    type='product'
+    :title='user.username'
+    :id='user.id'
   )
   template(v-slot:bar)
     ButtonTag(mode="icon", @click="get")

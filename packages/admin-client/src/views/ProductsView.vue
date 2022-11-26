@@ -5,6 +5,8 @@ WrapperPage
     :key="product._id",
     :obj="product"
     type='product'
+    :title='product.info.title'
+    :id='product._id'
   )
   template(v-slot:bar)
     ButtonTag(mode="icon", @click="get")

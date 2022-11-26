@@ -1,8 +1,8 @@
 <template lang="pug">
 .listitem(v-if='obj')
   .listitem_id
-    span id: {{ obj._id }}
-  h4(v-if="!tabs.json") {{ obj.info.title }}
+    span id: {{ id }}
+  h4(v-if="!tabs.json") {{ title }}
   highlightjs(
     v-if="tabs.json"
     language="json",
@@ -21,20 +21,32 @@
       WrapperAlert(v-if='tabs.delete')
         p 
         |Are you sure you wont to delete {{ type }}
-        | #[b "{{ obj.info.title }}"] ?
+        | #[b "{{ title }}"] ?
 </template>
 <script lang="ts" setup>
-import { useBrandsStore, useProductsStore, useUserStore } from "@/stores";
-import type { IBrandExtended, IProductExtended } from "@qtb_korea/types";
+import { useBrandsStore, useProductsStore, useUsersStore, useUserStore } from "@/stores";
+import type {
+  IBrandExtended,
+  IProductExtended,
+  IUserData,
+} from "@qtb_korea/types";
 import { ref, type PropType } from "vue";
 
 const props = defineProps({
   obj: {
-    type: Object as PropType<IBrandExtended | IProductExtended>,
+    type: Object as PropType<IBrandExtended | IProductExtended | IUserData>,
     default: null,
   },
   type: {
     type: String as PropType<"brand" | "product" | "user">,
+    default: null,
+  },
+  title: {
+    type: String as PropType<string>,
+    default: null,
+  },
+  id: {
+    type: String as PropType<string>,
     default: null,
   },
 });
@@ -47,15 +59,19 @@ const tabs = ref({
 
 const { remove: removeBrand } = useBrandsStore();
 const { remove: removeProduct } = useProductsStore();
+const { remove: removeUser } = useUsersStore()
 const { isAdmin } = useUserStore();
 
 const deleteObj = () => {
   switch (props.type) {
     case "brand":
-      removeBrand(props.obj._id);
+      removeBrand(props.id);
       break;
     case "product":
-      removeProduct(props.obj._id);
+      removeProduct(props.id);
+      break;
+    case "user":
+      removeUser(props.id);
       break;
 
     default:

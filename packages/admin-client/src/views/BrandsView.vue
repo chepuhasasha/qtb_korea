@@ -5,6 +5,8 @@ WrapperPage
       :key="brand._id",
       :obj="brand"
       type='brand'
+      :title='brand.info.title'
+      :id='brand._id'
   )
   template(v-slot:bar)
     ButtonTag(mode="icon", @click="get")

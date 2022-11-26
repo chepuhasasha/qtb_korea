@@ -43,10 +43,10 @@ export class BrandsController {
   )
   async create(@UploadedFile() file, @Body() createBrandDto: CreateBrandDTO) {
     const brand = await this.brandsService.create({
-      title: createBrandDto.title,
+      ...createBrandDto,
       baner: file.filename,
     });
-    return brand ? brand : { message: 'User alredy exist!' };
+    return brand ? brand : { message: 'Something went wrong!' };
   }
 
   @Post('/find')

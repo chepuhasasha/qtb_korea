@@ -8,6 +8,8 @@ export class Brand implements IBrand {
   title: string;
   @Prop()
   baner: string;
+  @Prop()
+  description: string;
 }
 
 export const BrandSchema = SchemaFactory.createForClass(Brand);

@@ -8,9 +8,16 @@ WrapperForm
       v-model="state.title"
       :error='validate.title.$errors[0]?.$message'
     )
+    TextareaTag(
+      rows="4"
+      label="Description",
+      placeholder="some brand description...",
+      v-model="state.description"
+      :error='validate.description.$errors[0]?.$message'
+    )
     InputImageTag(
-      label="Logo",
-      placeholder="some logo url...",
+      label="Baner",
+      placeholder="some baner url...",
       @add="state.baner = $event"
       :error='validate.baner.$errors[0]?.$message'
     )
@@ -24,15 +31,17 @@ import { required } from "@vuelidate/validators";
 
 const { create } = useBrandsStore();
 
-const state = reactive<IBrandCreate>({
-  title: "",
-  baner: new Blob(),
+const state = reactive<{ [K in keyof IBrandCreate]: null | IBrandCreate[K] }>({
+  title: null,
+  baner: null,
+  description: null,
 });
 
 const validate = useVuelidate(
   {
     title: { required },
     baner: { required },
+    description: { required },
   },
   state
 );
@@ -40,7 +49,7 @@ const validate = useVuelidate(
 const createBrand = async () => {
   const valid = await validate.value.$validate();
   if (valid) {
-    create(state)
+    create(state as IBrandCreate);
   }
 };
 </script>

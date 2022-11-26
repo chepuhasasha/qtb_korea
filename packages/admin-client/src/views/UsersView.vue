@@ -15,12 +15,12 @@ WrapperPage
 Teleport(to="body")
   Transition(name='modal')
     WrapperModal(v-if="open" @close="open = false", title="Create new user" width='80vw')
-    FormCreateUser
+      FormCreateUser
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, computed } from "vue";
-import { useUsersStore } from "@/stores";
+import { useUsersStore } from "@/stores"
 
 const { state, get } = useUsersStore();
 const open = ref<boolean>(false);
@@ -38,4 +38,5 @@ const filtred = computed(() => {
 onMounted(() => {
   get();
 });
+
 </script>

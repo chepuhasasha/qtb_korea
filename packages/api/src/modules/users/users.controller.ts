@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from 'src/decorators/roles.decorator';
 
@@ -21,8 +21,8 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  @UseGuards(AuthGuard('jwt'))
-  @Roles('root')
+  @ApiSecurity('X-QTB-KEY', ['X-QTB-KEY'])
+  @UseGuards(AuthGuard('api-key'))
   async create(@Body() createUserDto: CreateUserDTO) {
     const user = await this.usersService.create(createUserDto);
     return user

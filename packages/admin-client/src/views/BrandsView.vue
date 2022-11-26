@@ -34,7 +34,7 @@ const search = ref<string | null>(null);
 const filtred = computed(() => {
   return state.brands.filter((t) => {
     if (search.value) {
-      return t.title.toLowerCase().includes(search.value.toLowerCase());
+      return t.info.title.toLowerCase().includes(search.value.toLowerCase());
     }
     return true;
   });

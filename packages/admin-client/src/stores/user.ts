@@ -3,14 +3,14 @@ import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { useServerMessagesStore } from "./serverMessages";
 import { useLoaderStore } from "./loader";
-import type { ILogin, IAdminData } from "@tournaments/types";
+import type { ILogin, IUserData } from "@qtb_korea/types";
 import moment from "moment";
 
 export type UserState = {
-  user: IAdminData | null;
+  user: IUserData | null;
   iat: number;
   headers: {
-    "X-TOURNAMENTS-KEY": string | null;
+    "X-QTB-KEY": string | null;
     Authorization: string | null;
   };
 };
@@ -20,7 +20,7 @@ export const useUserStore = defineStore("user", () => {
     user: null,
     iat: 0,
     headers: {
-      "X-TOURNAMENTS-KEY": null,
+      "X-QTB-KEY": null,
       Authorization: null,
     },
   });
@@ -101,7 +101,7 @@ export const useUserStore = defineStore("user", () => {
       .get("auth/logout", { headers: state.value.headers })
       .then((res) => {
         state.value.user = null;
-        state.value.headers["X-TOURNAMENTS-KEY"] = null;
+        state.value.headers["X-QTB-KEY"] = null;
         state.value.headers.Authorization = null;
         addMessage({ code: 200, message: res.data.message, type: "ok" });
         setLoader(false);
@@ -121,7 +121,7 @@ export const useUserStore = defineStore("user", () => {
   const get = async () => {
     setLoader(true);
     return await axios
-      .get<IAdminData>("auth/user", { headers: state.value.headers })
+      .get<IUserData>("auth/user", { headers: state.value.headers })
       .then((res) => {
         state.value.user = res.data;
         addMessage({

@@ -20,6 +20,13 @@
         placeholder="password",
         :error='validate.password.$errors[0]?.$message'
       )
+      InputTag(
+        v-if="!isLogin"
+        icon='key'
+        type="password",
+        v-model="state.headers['X-QTB-KEY']"
+        placeholder="API KEY",
+      )
     .login_form_footer
       ButtonTag(@click="isLogin = !isLogin" mode='ghost') {{ isLogin ? 'Sign Up!' : 'Login' }}
       ButtonTag(@click="submit" mode='icon' active) {{ !isLogin ? 'Sign Up!' : 'Login' }}

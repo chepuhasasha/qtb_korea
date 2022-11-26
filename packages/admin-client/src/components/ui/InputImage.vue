@@ -16,8 +16,7 @@ WrapperInput(@click='_focus' :customFocus='isfocus')
     slot
 </template>
 <script lang="ts" setup>
-import type { PropType } from "vue";
-import { ref, computed } from "vue";
+import { ref } from "vue";
 
 const isfocus = ref<boolean>(false);
 const input = ref<HTMLInputElement | null>(null);

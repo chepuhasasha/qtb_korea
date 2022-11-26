@@ -17,7 +17,7 @@
     v-if="state.user.role === 'root'"
     icon='key'
     type="password",
-    v-model="state.headers['X-TOURNAMENTS-KEY']"
+    v-model="state.headers['X-QTB-KEY']"
     placeholder="API KEY",
   )
 </template>

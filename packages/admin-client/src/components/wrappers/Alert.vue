@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from "vue-demi";
+import type { PropType } from "vue";
 
 defineProps({
   title: { type: String as PropType<string>, default: "Alert!" },

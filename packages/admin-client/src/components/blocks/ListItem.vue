@@ -67,11 +67,15 @@ const deleteObj = () => {
 .listitem
   display: flex
   flex-direction: column
-  padding: 40px
+  padding: 40px 40px 40px 30px
+  border-left: 10px solid var(--contrast-200)
   gap: 10px
   background: var(--contrast-200)
   color: var(--text-color-100)
   justify-content: space-between
+  &:hover
+    background: var(--contrast-300)
+    border-color: var(--primary-100)
   &_id
     width: max-content
     padding: 4px 10px

@@ -45,7 +45,6 @@ export class ProductsController {
     @UploadedFiles() files,
     @Body() createProductDto: CreateProductDTO,
   ) {
-    console.log(files)
     const product = await this.productsService.create(createProductDto, files);
     return product ? product : { message: 'Something went wrong!' };
   }
@@ -66,7 +65,6 @@ export class ProductsController {
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard('jwt'))
   async getById(@Param('id') id: string) {
     const product = await this.productsService.findByID(id);
     return product ? product : { message: 'Product not a found!' };

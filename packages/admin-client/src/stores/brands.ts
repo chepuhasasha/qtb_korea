@@ -3,7 +3,7 @@ import { useAxios } from "@/composables/axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useServerMessagesStore } from "@/stores/serverMessages";
-import type { IBrand, IBrandExtended } from "@qtb_korea/types";
+import type { IBrand, IBrandCreate, IBrandExtended } from "@qtb_korea/types";
 import { useUserStore } from "./user";
 
 export interface BrandsState {
@@ -69,10 +69,19 @@ export const useBrandsStore = defineStore("brands", () => {
       });
   };
 
-  const create = async (data: IBrand) => {
+  const create = async (data: IBrandCreate) => {
     setLoader(true);
+    const form = new FormData();
+    Object.keys(data).forEach((key) => {
+      form.append(key, data[key as keyof IBrandCreate]);
+    });
     return await axios
-      .post(`brands`, data, { headers: userState.headers })
+      .post(`brands`, form, {
+        headers: {
+          ...userState.headers,
+          "Content-Type": "multypart/form-data",
+        },
+      })
       .then((res) => {
         addMessage({
           code: 200,

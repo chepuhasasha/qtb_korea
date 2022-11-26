@@ -5,5 +5,5 @@ export class CreateBrandDTO implements IBrand {
   @ApiProperty({ description: 'Title' })
   title: string;
   @ApiProperty({ description: 'Logo url' })
-  logo: string;
+  baner: string;
 }

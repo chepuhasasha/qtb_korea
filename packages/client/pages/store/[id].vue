@@ -1,9 +1,37 @@
 <template lang="pug">
 NuxtLayout.product
+  WrapperBlock.product_logo_line
+    img(src="@/assets/images/logoline.svg")
   WrapperBlock.product_main
     img(src="@/assets/images/shape1.svg", width="60")
     h1 Blur Stick
     WidgetButton(mode='ghost' size='l') Vue De Pulang
+    WrapperBlock(:style='{width: "100%", justifyContent: "space-between"}')
+      WidgetButton(mode='ghost') ОПТОМ
+      WidgetButton купить на OZON
+  WrapperBlock.product_shader
+    BlockMask(url='/images/product.png')
+  BlockCarousel.product_carousel(:images='images')
+  WrapperBlock.product_1
+    h2 1
+    p 
+      | Компания стала членом корейской торговой ассоциации KITTA и KOTRA.
+  WrapperBlock.product_2
+    h2 2
+    p 
+      | Компания стала членом корейской торговой ассоциации KITTA и KOTRA.
+  WrapperBlock.product_3
+    h2 3
+    p 
+      | Компания стала членом корейской торговой ассоциации KITTA и KOTRA.
+  WrapperBlock.product_info
+    p 
+      | Праймер-стик от VueDePulang контролирует себум, 
+      | и в то же время, не сушит кожу, а наоборот, ее увлажняет.
+      | За счет своей текстуры праймер хорошо ложится на лицо,
+      | и сохраняет макияж в лучшем виде с утра до вечера.
+      | Праймер делает кожу более мягкой,
+      | избавит её от сухости и эффекта стянутости.
     WrapperBlock(:style='{width: "100%", justifyContent: "space-between"}')
       WidgetButton(mode='ghost') ОПТОМ
       WidgetButton купить на OZON

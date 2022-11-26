@@ -11,7 +11,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { BrandsModule } from '../brands/brands.module';
 import { MulterModule } from '@nestjs/platform-express';
-import { FilesModule } from '../files/files.module';
 
 @Module({
   imports: [
@@ -24,7 +23,6 @@ import { FilesModule } from '../files/files.module';
     MulterModule.register({
       dest: './uploads',
     }),
-    FilesModule,
     AuthorizationModule,
     UsersModule,
     ProductsModule,

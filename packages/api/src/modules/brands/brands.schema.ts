@@ -7,7 +7,7 @@ export class Brand implements IBrand {
   @Prop()
   title: string;
   @Prop()
-  logo: string;
+  baner: string;
 }
 
 export const BrandSchema = SchemaFactory.createForClass(Brand);

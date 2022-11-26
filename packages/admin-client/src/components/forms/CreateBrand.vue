@@ -11,12 +11,12 @@ WrapperForm
     InputImageTag(
       label="Logo",
       placeholder="some logo url...",
-      v-model="state.logo"
-      :error='validate.logo.$errors[0]?.$message'
+      @add="state.baner = $event"
+      :error='validate.baner.$errors[0]?.$message'
     )
 </template>
 <script lang="ts" setup>
-import type { IBrand } from "@qtb_korea/types";
+import type { IBrandCreate } from "@qtb_korea/types";
 import { useBrandsStore } from "@/stores";
 import { reactive } from "vue";
 import { useVuelidate } from "@vuelidate/core";
@@ -24,15 +24,15 @@ import { required } from "@vuelidate/validators";
 
 const { create } = useBrandsStore();
 
-const state = reactive<IBrand>({
+const state = reactive<IBrandCreate>({
   title: "",
-  logo: "",
+  baner: new Blob(),
 });
 
 const validate = useVuelidate(
   {
     title: { required },
-    logo: { required },
+    baner: { required },
   },
   state
 );
@@ -40,7 +40,7 @@ const validate = useVuelidate(
 const createBrand = async () => {
   const valid = await validate.value.$validate();
   if (valid) {
-    create(state);
+    create(state)
   }
 };
 </script>

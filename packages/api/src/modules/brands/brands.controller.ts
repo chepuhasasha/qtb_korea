@@ -11,6 +11,8 @@ import {
   Delete,
   UseGuards,
   ForbiddenException,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -18,6 +20,9 @@ import { Roles } from 'src/decorators/roles.decorator';
 import { BrandsService } from './brands.service';
 import { FilterQuery, Document, Types } from 'mongoose';
 import { Brand } from './brands.schema';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { editFileName, imageFileFilter } from '../../utils/images.utils';
+import { diskStorage } from 'multer';
 
 @ApiTags('Brands')
 @Controller('brands')
@@ -27,8 +32,20 @@ export class BrandsController {
   @Post()
   @UseGuards(AuthGuard('jwt'))
   @Roles('admin', 'root')
-  async create(@Body() createBrandDto: CreateBrandDTO) {
-    const brand = await this.brandsService.create(createBrandDto);
+  @UseInterceptors(
+    FileInterceptor('baner', {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: editFileName,
+      }),
+      fileFilter: imageFileFilter,
+    }),
+  )
+  async create(@UploadedFile() file, @Body() createBrandDto: CreateBrandDTO) {
+    const brand = await this.brandsService.create({
+      title: createBrandDto.title,
+      baner: file.filename,
+    });
     return brand ? brand : { message: 'User alredy exist!' };
   }
 

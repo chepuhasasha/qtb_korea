@@ -5,7 +5,6 @@ WrapperInput(@click='_focus' :customFocus='isfocus')
       ref="input",
       type='file'
       @input="handleFileInput",
-      :value="modelValue",
       v-bind="$attrs",
       @blur="isfocus = false"
       accept="image/*"
@@ -20,31 +19,21 @@ WrapperInput(@click='_focus' :customFocus='isfocus')
 import type { PropType } from "vue";
 import { ref, computed } from "vue";
 
-defineProps({
-  modelValue: {
-    type: [String || Number] as PropType<string | number | null>,
-    default: "",
-  },
-});
-
 const isfocus = ref<boolean>(false);
 const input = ref<HTMLInputElement | null>(null);
-const emit = defineEmits(["update:modelValue"]);
-const update = (e: Event) => {
-  emit("update:modelValue", (e.target as HTMLInputElement).value);
-};
-
-const src = ref('')
+const emit = defineEmits(["add"]);
+const src = ref("");
 
 const handleFileInput = (e: Event) => {
   const target = e.target as HTMLInputElement;
   if (target && target.files && target.files.length > 0) {
     const file = target.files[0];
+    emit("add", file);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (r) => {
-      src.value = r.currentTarget?.result
-    }
+      src.value = r.currentTarget?.result;
+    };
   }
 };
 

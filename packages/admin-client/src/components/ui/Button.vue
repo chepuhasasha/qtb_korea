@@ -49,6 +49,7 @@ const classes = computed(() => ({
     background: var(--contrast-300)
     padding: 10px
     border-radius: 4px
+    border: var(--border-100)
     path
       stroke: var(--text-color-100) !important
     &:hover, &_active

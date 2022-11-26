@@ -3,7 +3,7 @@ import AlertVue from "./Alert.vue";
 import InputVue from "./Input.vue";
 import ModalVue from "./Modal.vue";
 import FormVue from "./Form.vue";
-import ListItemVue from "../blocks/ListItem.vue";
+import PageVue from "./Page.vue";
 
 export default {
   install(vue: App) {
@@ -11,5 +11,6 @@ export default {
     vue.component("WrapperInput", InputVue);
     vue.component("WrapperAlert", AlertVue);
     vue.component("WrapperForm", FormVue);
+    vue.component("WrapperPage", PageVue);
   },
 };

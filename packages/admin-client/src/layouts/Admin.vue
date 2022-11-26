@@ -14,7 +14,6 @@ main.main
     RouterLink.main_bar_item(v-if="state.user?.role === 'root'" to="/users" active-class="main_bar_item_active")
       WidgetIcon(icon="folder") 
       | USERS
-    slot(name="bar")
   .main_body
     slot
 </template>
@@ -67,4 +66,9 @@ const { state } = useUserStore();
 
   &_body
     grid-area: 1/2/3/3
+    position: relative
+    width: 100%
+    height: 100%
+    max-width: 100%
+    max-height: 100%
 </style>

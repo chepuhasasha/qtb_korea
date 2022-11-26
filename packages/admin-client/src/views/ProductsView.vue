@@ -1,19 +1,15 @@
 <template lang="pug">
-.products
-  TransitionGroup.products_list(name="list-absolute" tag="div")
-    BlockListItem(
-      v-for="product in filtred",
-      :key="product._id",
-      :obj="product"
-      type='product'
-    )
-  .products_bar
+WrapperPage
+  BlockListItem(
+    v-for="product in filtred",
+    :key="product._id",
+    :obj="product"
+    type='product'
+  )
+  template(v-slot:bar)
     ButtonTag(mode="icon", @click="get")
       WidgetIcon(icon="spin")
     InputTag(placeholder="search by title..." v-model='search')
-    ButtonTag(mode="icon", @click="open = true")
-      WidgetIcon(icon="filter")
-      | FILTER
     ButtonTag(mode="icon", @click="open = true" active)
       WidgetIcon(icon="plus")
 
@@ -44,29 +40,3 @@ onMounted(() => {
   get();
 });
 </script>
-<style lang="sass">
-.products
-  display: grid
-  grid-template-rows: max-content 1fr
-  gap: 2px
-  font: var(--tont-100)
-  color: var(--text-color-100)
-  height: 100%
-  &_list
-    grid-area: 2/1/3/2
-    display: grid
-    grid-template-columns: 1fr
-    gap: 2px
-    overflow-y: auto
-    height: 100%
-  &_bar
-    display: flex
-    align-items: center
-    gap: 10px
-    grid-area: 1/1/2/2
-    background: var(--contrast-200)
-    padding: 10px
-    height: max-content
-    .input
-      width: 100%
-</style>

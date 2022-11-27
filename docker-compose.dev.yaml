@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   mongo:
     image: mongo
@@ -10,7 +10,13 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - ./mongo-data:/data/db
+      - ./mongo-data:/opt/db
     env_file:
-      - ../.env
+      - .env
     command: --wiredTigerCacheSizeGB 1.5
+    networks:
+      - myNetwork
+
+networks:
+  myNetwork:
+    driver: bridge

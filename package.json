@@ -4,7 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:api": "npm run start:dev -w @qtb_korea/api",
+    "dev:admin-client": "npm run dev -w=@qtb_korea/admin-client",
+    "dev:client": "npm run dev -w=@qtb_korea/client",
+    "build:api": "npm run build -w @qtb_korea/api",
+    "build:admin-client": "npm run build -w=@qtb_korea/admin-client",
+    "build:client": "npm run build -w=@qtb_korea/client",
+    "build:types": "npm run build -w @qtb_korea/types",
+    "start:api": "npm run start -w @qtb_korea/api",
+    "start:client": "npm run start -w=@qtb_korea/client"
   },
   "repository": {
     "type": "git",

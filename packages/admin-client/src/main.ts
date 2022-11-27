@@ -16,6 +16,12 @@ import "highlight.js/styles/github-dark.css";
 import "highlight.js/lib/common";
 import hljsVuePlugin from "@highlightjs/vue-plugin";
 
+declare global {
+  interface EventTarget {
+    result: any;
+  }
+}
+
 createApp(App)
   .use(createPinia())
   .use(router)

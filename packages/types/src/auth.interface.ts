@@ -1,4 +1,4 @@
-import { UserRole } from "./common";
+import type { UserRole } from "./common";
 
 export interface IAuthData {
     user_id: string;

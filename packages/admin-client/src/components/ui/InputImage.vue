@@ -31,6 +31,7 @@ const handleFileInput = (e: Event) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (r) => {
+      /* tslint:disable-next-line */
       src.value = r.currentTarget?.result;
     };
   }

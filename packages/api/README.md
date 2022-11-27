@@ -4,9 +4,6 @@
 $ npm install
 ```
 
-```
-docker-compose -f docker/docker-compose.yaml --env-file .env up
-```
 
 ## Running the app
 

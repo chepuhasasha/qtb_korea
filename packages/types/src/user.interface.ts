@@ -1,4 +1,4 @@
-import { UserRole } from './common';
+import type { UserRole } from './common';
 export declare interface IUser {
     username: string;
     hash: string;

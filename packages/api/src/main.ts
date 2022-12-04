@@ -3,14 +3,13 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 import { AppModule } from './modules/app/app.module';
 import { RolesGuard } from './guards/roles.guard';
-import appConfig from './configs/app.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
   app.useGlobalGuards(new RolesGuard(new Reflector()));
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: true,
     credentials: true,
   });
 

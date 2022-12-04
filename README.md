@@ -9,5 +9,10 @@ docker-compose up
 ## Dev
 
 ```
-docker-compose -f docker-compose.dev.yaml --env-file .env up
+docker-compose up -d
+```
+## Prod
+
+```
+docker-compose --profile prod up -d --build
 ```
